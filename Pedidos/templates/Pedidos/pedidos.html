@@ -1,0 +1,422 @@
+<body>
+    <!-- Contenedor De Toda La Página -->
+    <div class="container-fluid my-3 center">
+        
+        <!-- Encabezado De la Grilla -->
+        <div class="row shadow">
+            <span class="col-6 h3">Pedidos</span>
+
+            <a class="btn btn-success ml-auto" href="#Nuevo" data-toggle="modal"><span>Nuevo Pedido</span></a>
+        </div> <!-- Fin Encabezado De la Grilla -->
+
+        <!-- Tabla Grilla -->
+        <table id="tblPedidos" class="table-sm table-responsive table-hover my-2">
+            <thead class="table-dark bg-secondary">
+                <tr>
+                    <th class="text-center" scope="col"># Pedido</th>
+                    <th class="text-center" scope="col">Usuario</th>
+                    <th class="text-center" scope="col">Fecha</th>
+                    <th class="text-center" scope="col">Proveedor</th>
+                    <th class="text-center" scope="col">Tipo De Cerbeza</th>
+                    <th class="text-center" scope="col">Cantidad</th>
+                    <th class="text-center" scope="col">Entregado</th>
+                    <th class="text-center" scope="col">Pendiente</th>
+                    <th class="text-center" scope="col">Estado</th>
+                    <th class="text-center" scope="col">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- EJEMPLOS DE REGISTROS DATOS DUROS -->
+                <tr><!--Fila 1-->
+                    <td scope="row" class="text-center">1</td><!--Numero De Pedido-->
+                    <td>Thomas Hardy</td><!--Usuario-->
+                    <td class="text-center">25/08/1820</td><!--Fecha-->
+                    <td>Astor</td><!--Proveedor-->
+                    <td>Porter</td><!--Tipo Cerveza-->
+                    <td class="text-center">5</td><!--Cantidad-->
+                    <td class="text-center">0</td><!--Entregado-->
+                    <td class="text-center">5</td><!--Pendiente-->
+                    <td class="text-center">Pendiente</td><!--Estado Del Pedido-->
+                    <td class="text-center">
+                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
+                    </td>
+                </tr>
+
+                <tr><!--Fila 2-->
+                    <td scope="row" class="text-center">2</td>
+                    <td>Thomas Hardy</td>
+                    <td class="text-center">25/08/1820</td>
+                    <td>Larsen</td>
+                    <td>Porter</td>
+                    <td class="text-center">5</td>
+                    <td class="text-center">0</td><!--Entregado-->
+                    <td class="text-center">5</td><!--Pendiente-->
+                    <td class="text-center">Pendiente</td>
+                    <td class="text-center">
+                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
+                    </td>
+                </tr>
+
+                <tr><!--Fila 3-->
+                    <td scope="row" class="text-center">3</td>
+                    <td>Thomas Hardy</td>
+                    <td class="text-center">25/08/1820</td>
+                    <td>Fucce's</td>
+                    <td>Porter</td>
+                    <td class="text-center">5</td>
+                    <td class="text-center">0</td><!--Entregado-->
+                    <td class="text-center">5</td><!--Pendiente-->
+                    <td class="text-center">Pendiente</td>
+                    <td class="text-center">
+                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
+                    </td>
+                </tr>
+
+                <tr class=" bg-light"><!--Fila4-->
+                    <td scope="row" class="text-center">4</td>
+                    <td>Thomas Hardy</td>
+                    <td class="text-center">25/08/1820</td>
+                    <td>Berlina</td>
+                    <td>Porter</td>
+                    <td class="text-center">5</td>
+                    <td class="text-center">5</td><!--Entregado-->
+                    <td class="text-center">0</td><!--Pendiente-->
+                    <td class="text-center font-weight-bold">Entregado</td>
+                    <td class="text-center">
+                        <a href="#editar"   data-toggle="modal" class="btn disabled"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                        <a href="#borrar"   data-toggle="modal" class="btn disabled"><i class="material-icons text-danger"  data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
+                    </td>
+                </tr>
+
+                <tr><!--Fila 5-->
+                    <td scope="row" class="text-center">5</td>
+                    <td>Thomas Hardy</td>
+                    <td class="text-center">25/08/1820</td>
+                    <td>Harem</td>
+                    <td>Porter</td>
+                    <td class="text-center">5</td>
+                    <td class="text-center">0</td><!--Entregado-->
+                    <td class="text-center">5</td><!--Pendiente-->
+                    <td class="text-center">Pendiente</td>
+                    <td class="text-center">
+                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                        <a href="#borrar"   data-toggle="modal"><i class="material-icons text-danger"  data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
+                    </td>
+                </tr>
+
+                <tr class=" bg-light"><!--Fila 6-->
+                    <td scope="row" class="text-center">6</td>
+                    <td>Thomas Hardy</td>
+                    <td class="text-center">25/08/1820</td>
+                    <td>Supernova</td>
+                    <td>Porter</td>
+                    <td class="text-center">5</td>
+                    <td class="text-center">3</td><!--Entregado-->
+                    <td class="text-center">2</td><!--Pendiente-->
+                    <td class="text-center font-weight-bold">Entregado</td>
+                    <td class="text-center">
+                        <a href="#editar"   data-toggle="modal" class="btn disabled"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                        <a href="#borrar"   data-toggle="modal" class="btn disabled"><i class="material-icons text-danger"  data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table> <!-- Fein Tabla Grilla -->
+
+    </div> <!-- Fin Contenedor De Toda La Página -->
+
+ <!-------------------------------------------------------------------------------------------------------------------------
+                        Acá están las ventanas modales para Nuevo, Editar y Borrar
+ -------------------------------------------------------------------------------------------------------------------------->
+
+	<!-- NUEVO Modal HTML -->
+	<div id="Nuevo" class="modal fade">
+		<div class="modal-dialog modal-lg modal-dialog-centered">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">						
+						<h4 class="modal-title">Nuevo Pedido</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button-->
+                    </div>
+                    
+					<div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="sel1">Proveedor:</label>
+                            <select class="form-control">
+                                <option>Astor</option>
+                                <option>Larsen</option>
+                                <option>Fucce's</option>
+                                <option>Berlina</option>
+                                <option>Harem</option>
+                                <option>Supernova</option>
+                            </select>
+                        </div>
+
+                        <button id="btnNuevoItem" type="button" class=" btn btn-outline-success" title="Enter">Nuevo Item</button>
+                        
+
+                        <!-- Grilla Para Cargar Los Pedidos -->
+                        <table id="tblPedido" class=" table-sm table-responsive table-hover">
+                            <thead class=" table-dark bg-secondary">
+                                <tr>
+                                    <th class="text-center" scope="col"> </th>
+                                    <th class="text-ceter" scope="col">Tipo De Cerveza</th>
+                                    <th class="text-center" scope="col">Cantidad</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td class="text-center">
+                                        <a href="#" data-toggle="modal">
+                                            <i class="material-icons text-danger btnBorrar" data-toggle="tooltip" title="Borrar">
+                                                &#xE872;
+                                            </i>
+                                        </a>
+                                    </td>
+                                    
+                                    <td>
+                                        <input type="text" placeholder="Tipo De Cerveza">
+                                    </td>
+
+                                    <td>
+                                        <input type="text" placeholder="Cantidad">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        											
+					</div>
+					<div class="modal-footer">
+                        <!--EL BOTON DE ACEPTAR SE DEBE CAMBIAR A SUBMIT CUANDO SE IMPLEMENTE-->
+                        <input id="btnGuardar" type="button" class="btn btn-success" value="Guardar" title="CTRL+G">
+						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+					</div>
+				</form>
+			</div>
+		</div>
+    </div>
+    <!-- FIN NUEVO Modal HTML -->
+
+    <!-- EDITAR Modal HTML -->
+	<div id="editar" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">						
+						<h4 class="modal-title">Editar Pedido</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+
+						<div class="form-group">
+                            <label for="sel1">Proveedor:</label>
+                            <select class="form-control" id="sel1">
+                                <option>Astor</option>
+                                <option>Larsen</option>
+                                <option>Fucce's</option>
+                                <option>Berlina</option>
+                                <option>Harem</option>
+                                <option>Supernova</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sel1">Tipo De Cerveza:</label>
+                            <select class="form-control" id="sel1">
+                                <option>Ipa</option>
+                                <option>Porter</option>
+                                <option>Lager</option>
+                                <option>Lambic</option>
+                                <option>Bock</option>
+                                <option>Pilsen</option>
+                            </select>
+                        </div>
+
+						<div class="form-group">
+							<input type="text" class="form-control" required placeholder="Cantidad">
+						</div>
+
+					</div>
+					<div class="modal-footer">
+                        <!--EL BOTON DE ACEPTAR SE DEBE CAMBIAR A SUBMIT CUANDO SE IMPLEMENTE-->
+                        <input type="button" class="btn btn-info" value="Aceptar">
+						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- BORRAR Modal HTML -->
+	<div id="borrar" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header bg-warning">						
+						<h4 class="modal-title"><strong>Borrar</strong> Pedido</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">					
+						<p>¿Estás Seguro De Borrar Este Pedido?</p>
+						<p class="text-danger"><meduim>Esta acción no se puede revertir</meduim></p>
+					</div>
+					<div class="modal-footer">
+						<!--EL BOTON DE ACEPTAR SE DEBE CAMBIAR A SUBMIT CUANDO SE IMPLEMENTE-->
+                        <input type="button" class="btn btn-info" value="Aceptar">
+						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+					</div>
+				</form>
+			</div>
+		</div>
+    </div>
+    
+</body>
+
+<!-- Script para agregar fila a la tabla de NUEVO (id="pedido")-->
+<script>
+    //TODO ESTO SACARLO A UN ARCHIVO JS
+    /*Funciona, pero hay que mejorar el código ya que hay muchas variables que se repiten y funcionalidades
+    que deberían estar en funciones para reutilizar */
+
+    //Funcionalidad para el boton "Nuevo Item"
+    $('#btnNuevoItem').click(function(){
+
+        //Guardo el valor de la ultima fila (tr), el primer campo (input)
+        var valNom = $('#tblPedido tr:last input:first').val();
+
+        //Guardo el valor de la ultima fila (tr), el ultimo campo (input)
+        var valCan = $('#tblPedido tr:last input:last').val();
+
+        //Acá se valida que los campos estén completos antes de agregar una nueva fila
+        if ( (valNom == '') ) {
+            alert('Tipo De Cerveza Vacío');
+            $('#tblPedido tr:last input:first').focus();
+            
+        }else{
+            if( ((valNom != '') & (valCan == '')) ){
+            alert('Cantidad Vacío');
+            $('#tblPedido tr:last input:last').focus();
+            
+            /*Si ninguno de los campos está vacío, entonces agrega una nueva fila y
+            le da el foco al primer campo de la nueva fila*/
+            }else {
+                $('#tblPedido tbody:last').append(
+                    '<tr>'+
+                        '<td class="text-center">'+
+                            '<a href="#" data-toggle="modal">'+
+                                '<i class="material-icons text-danger btnBorrar" data-toggle="tooltip" title="Borrar">'+
+                                    '&#xE872;'+
+                                '</i>'+
+                            '</a>'+
+                        '</td>'+
+                        
+                        '<td>'+
+                            '<input type="text" placeholder="Tipo De Cerveza">'+
+                        '</td>'+
+
+                        '<td>'+
+                            '<input type="text" placeholder="Cantidad">'+
+                        '</td>'+
+                    '</tr>'
+                );
+
+                //$('#tabla tr:last input:first').css("background-color", "red");
+                $('#tblPedido tr:last input:first').focus();
+            }
+        }
+    
+    });
+
+    //Funcionalidad para Botón "guardar"
+    $('#btnGuardar').click(function(){
+
+        //Guardo el valor de la ultima fila (tr), el primer campo (input)
+        var valNom = $('#tblPedido tr:last input:first').val();
+
+        //Guardo el valor de la ultima fila (tr), el ultimo campo (input)
+        var valCan = $('#tblPedido tr:last input:last').val();
+
+        //Guardo la cantidad de filas que tiene la tabla
+        var tablaLength = $('#tblPedido tr').length;
+
+        /*Inicialmente la tabla tiene dos filas. La de encabezados y una para completar
+        La primera fila para completar no puede estar vacía para guardar el pedido.
+        Para validarlo llamo a la función que valida que es la del botón "Nuevo Item"*/
+        if(tablaLength < 3){
+            $('#btnNuevoItem').click();
+            
+        }else{
+            /*Si hay mas de dos filas y la última tiene los dos campos vacíos entonces permite guardar*/
+            if( ((valNom == '') & (valCan == '')) | ((valNom !='')&(valCan!='')) ){
+                alert('CRT + G = Guardar');
+            }else{
+                //Sino vuelve a validar con la función del boton "Nuevo Item"
+                $('#btnNuevoItem').click();
+            }
+        }
+    });
+
+
+    //Funcionalidad Para botón "Borrar"
+    $('tbody').on('click', '.btnBorrar', function(){
+
+        //Guardo la cantidad de filas que tiene la tabla
+        var tablaLength = $('#tblPedido tr').length;
+
+        if (tablaLength <3) {
+            $(this).parent().parent().parent().remove();
+            $('#tblPedido tbody:last').append(
+                '<tr>'+
+                    '<td class="text-center">'+
+                        '<a href="#" data-toggle="modal">'+
+                            '<i class="material-icons text-danger btnBorrar" data-toggle="tooltip" title="Borrar">'+
+                                '&#xE872;'+
+                            '</i>'+
+                        '</a>'+
+                    '</td>'+
+                    
+                    '<td>'+
+                        '<input type="text" placeholder="Tipo De Cerveza">'+
+                    '</td>'+
+
+                    '<td>'+
+                        '<input type="text" placeholder="Cantidad">'+
+                    '</td>'+
+                '</tr>'
+            );
+            //$('#tabla tr:last input:first').css("background-color", "red");
+            $('#tblPedido tr:last input:first').focus();
+
+        }else{
+            $(this).parent().parent().parent().remove();
+        }
+        
+    });
+    
+
+    //--------------------------- Atajos De Teclado ---------------------------
+
+    //Cuando se pulsa la tecla "Enter" se llama a la función del botón "Nuevo Item"
+    $(document).keypress(function(event){
+        var keyCode = (event.keyCode ? event.keyCode : event.which);
+        if(keyCode == '13'){
+            $('#btnNuevoItem').click();
+        }
+    });
+
+
+    //Cuando se pulsa "CRTL+G" llama al botón "guardar"
+    $(document).keydown(function(event) {
+        if (event.ctrlKey && event.which === 71) {
+            $('#btnGuardar').click();   
+            event.preventDefault();
+        }
+    });
+
+</script>

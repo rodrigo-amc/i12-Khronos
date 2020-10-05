@@ -19,10 +19,10 @@ def proveedores(request):
     return render(request, 'Pedidos/proveedores.html')
 
 def pedidos(request):
-    return HttpResponse('pedidos')
+    return render(request, 'Pedidos/pedidos.html')
 
 def ingresos(request):
-    return HttpResponse('ingresos')
+    return render(request, 'Pedidos/ingresos.html')
 
 def cerrarSesion(request):
     return HttpResponse('cerrarSesión')

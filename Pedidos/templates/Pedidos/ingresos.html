@@ -1,0 +1,136 @@
+<body>
+    <!-- Contenedor De Toda La Página -->
+    <div class="container-fluid my-3 center">
+        
+        <!-- Encabezado De la Grilla -->
+        <div class="row shadow">
+            <span class="col-6 h3">Ingresos</span>
+
+            
+        </div> <!-- Fin Encabezado De la Grilla -->
+
+        <!-- Tabla Grilla -->
+        <table class="table-sm table-responsive table-hover my-2">
+            <thead class="table-dark bg-secondary">
+                <tr>
+                    <th class="text-center" scope="col"># Pedido</th>
+                    <th class="text-center" scope="col">Usuario</th>
+                    <th class="text-center" scope="col">Fecha</th>
+                    <th class="text-center" scope="col">Proveedor</th>
+                    <th class="text-center" scope="col">Tipo De Cerbeza</th>
+                    <th class="text-center" scope="col">Cantidad</th>
+                    <th class="text-center" scope="col">Estado</th>
+                    <th class="text-center" scope="col">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- EJEMPLOS DE REGISTROS DATOS DUROS -->
+                <tr><!--Fila 1-->
+                    <td scope="row" class="text-center">1</td>
+                    <td>Thomas Hardy</td>
+                    <td class="text-center">25/08/1820</td>
+                    <td>Astor</td>
+                    <td>Porter</td>
+                    <td class="text-center">5</td>
+                    <td class="text-center">Pendiente</td>
+                    <td class="text-center">
+                        <a href="#tablaIngreso" class="btn btn-sm btn-outline-success" data-toggle="modal">Ingresar Pedido</a>
+                    </td>
+                </tr>
+
+                <tr><!--Fila 2-->
+                    <td scope="row" class="text-center">2</td>
+                    <td>Thomas Hardy</td>
+                    <td class="text-center">25/08/1820</td>
+                    <td>Larsen</td>
+                    <td>Porter</td>
+                    <td class="text-center">5</td>
+                    <td class="text-center">Pendiente</td>
+                    <td class="text-center">
+                        <a href="#tablaIngreso" class="btn btn-sm btn-outline-success" data-toggle="modal">Ingresar Pedido</a>
+                    </td>
+                </tr>
+
+                <tr><!--Fila 3-->
+                    <td scope="row" class="text-center">3</td>
+                    <td>Thomas Hardy</td>
+                    <td class="text-center">25/08/1820</td>
+                    <td>Fucce's</td>
+                    <td>Porter</td>
+                    <td class="text-center">5</td>
+                    <td class="text-center">Pendiente</td>
+                    <td class="text-center">
+                        <a href="#tablaIngreso" class="btn btn-sm btn-outline-success" data-toggle="modal">Ingresar Pedido</a>
+                    </td>
+                </tr>
+
+                <tr><!--Fila 5-->
+                    <td scope="row" class="text-center">5</td>
+                    <td>Thomas Hardy</td>
+                    <td class="text-center">25/08/1820</td>
+                    <td>Harem</td>
+                    <td>Porter</td>
+                    <td class="text-center">5</td>
+                    <td class="text-center">Pendiente</td>
+                    <td class="text-center">
+                        <a href="#tablaIngreso" class="btn btn-sm btn-outline-success" data-toggle="modal">Ingresar Pedido</a>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table> <!-- Fein Tabla Grilla -->
+
+    </div> <!-- Fin Contenedor De Toda La Página -->
+
+ <!-------------------------------------------------------------------------------------------------------------------------
+                        Acá están las ventanas modales para Editar y Borrar
+ -------------------------------------------------------------------------------------------------------------------------->
+
+	<!-- EDITAR Modal HTML -->
+	<div id="tablaIngreso" class="modal fade">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">						
+						<h4 class="modal-title">Ingreso De Pedido</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">					
+						<table class="table-sm table-responsive table-hover my-2">
+                            <thead class="table-dark bg-secondary">
+                                <tr>
+                                    <th class="text-center" scope="col"># Pedido</th>
+                                    <th class="text-center" scope="col">Usuario</th>
+                                    <th class="text-center" scope="col">Fecha</th>
+                                    <th class="text-center" scope="col">Proveedor</th>
+                                    <th class="text-center" scope="col">Tipo De Cerbeza</th>
+                                    <th class="text-center" scope="col">Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><!--Fila 1-->
+                                    <td scope="row" class="text-center">1</td>
+                                    <td>Thomas Hardy</td>
+                                    <td class="text-center">25/08/1820</td>
+                                    <td>Astor</td>
+                                    <td>Porter</td>
+                                    <td class="text-center">
+                                        <input class="form-control" type="text" placeholder="">
+                                    </td>
+                                    
+                                </tr>
+                            </tbody>
+                        </table>
+					</div>
+					<div class="modal-footer">
+                        <!--EL BOTON DE ACEPTAR SE DEBE CAMBIAR A SUBMIT CUANDO SE IMPLEMENTE-->
+                        <input type="button" class="btn btn-info" value="Aceptar">
+						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</body>
