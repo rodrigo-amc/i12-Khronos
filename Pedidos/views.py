@@ -16,7 +16,7 @@ def usuarios(request):
     return render(request, 'Pedidos/usuarios.html')
 
 def proveedores(request):
-    return HttpResponse('proveedores')
+    return render(request, 'Pedidos/proveedores.html')
 
 def pedidos(request):
     return HttpResponse('pedidos')
