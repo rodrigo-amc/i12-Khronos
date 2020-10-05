@@ -5,10 +5,12 @@ from django.shortcuts import render, HttpResponse
 # Cada función dentro de este módulo, representa un controlador
 
 def logIn(request):
-    return HttpResponse('Página Para Login')
+    return render(request, 'Pedidos/login.html')
+    # El framework reconoce automaticamente la carpeta "templates". Solo indico la subcarpeta.
+    #
 
 def menuPrincipal(request):
-    return HttpResponse('menuPrincipal')
+    return render(request, 'Pedidos/menu.html')
 
 def usuarios(request):
     return HttpResponse('usuarios')
