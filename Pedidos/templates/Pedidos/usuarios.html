@@ -1,0 +1,172 @@
+<body>
+    <!-- Contenedor De Toda La Página -->
+    <div class="container-fluid my-3 center">
+        
+        <!-- Encabezado De la Grilla -->
+        <div class="row shadow">
+            <span class="col-6 h3">Usuarios</span>
+
+            <a class="btn btn-success ml-auto" href="#Nuevo" data-toggle="modal"><span>Nuevo Usuario</span></a>
+        </div> <!-- Fin Encabezado De la Grilla -->
+
+        <!-- Tabla Grilla -->
+        <table class="table-sm table-responsive table-hover  my-2">
+            <thead class="table-dark bg-secondary">
+                <tr>
+                    <th class="text-center" scope="col">#</th>
+                    <th class="text-center" scope="col">Usuario</th>
+                    <th class="text-center" scope="col">Contraseña</th>
+                    <th class="text-center" scope="col">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- EJEMPLOS DE REGISTROS DATOS DUROS -->
+                <tr><!--Fila 1-->
+                    <td scope="row">1</td>
+                    <td>Thomas Hardy</td>
+                    <td>###################</td>
+                    <td class="text-center">
+                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
+                    </td>
+                </tr>
+
+                <tr><!--Fila 2-->
+                    <td scope="row">2</td>
+                    <td>Thomas Hardy</td>
+                    <td>###################</td>
+                    <td class="text-center">
+                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
+                    </td>
+                </tr>
+
+                <tr><!--Fila 3-->
+                    <td scope="row">3</td>
+                    <td>Thomas Hardy</td>
+                    <td>###################</td>
+                    <td class="text-center">
+                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
+                    </td>
+                </tr>
+
+                <tr><!--Fila4-->
+                    <td scope="row">4</td>
+                    <td>Thomas Hardy</td>
+                    <td>###################</td>
+                    <td class="text-center">
+                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
+                    </td>
+                </tr>
+
+                <tr><!--Fila 5-->
+                    <td scope="row">5</td>
+                    <td>Thomas Hardy</td>
+                    <td>###################</td>
+                    <td class="text-center">
+                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
+                    </td>
+                </tr>
+
+                <tr><!--Fila 6-->
+                    <td scope="row">6</td>
+                    <td>Thomas Hardy</td>
+                    <td>###################</td>
+                    <td class="text-center">
+                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar" >&#xE254;</i></a>
+                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table> <!-- Fein Tabla Grilla -->
+
+    </div> <!-- Fin Contenedor De Toda La Página -->
+
+ <!-------------------------------------------------------------------------------------------------------------------------
+                        Acá están las ventanas modales para Editar y Borrar
+ -------------------------------------------------------------------------------------------------------------------------->
+
+	<!-- NUEVO Modal HTML -->
+	<div id="Nuevo" class="modal fade">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+
+				<form target="/usuarios/insert" method="GET">
+					<div class="modal-header">						
+						<h4 class="modal-title">Nuevo Usuario</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button-->
+					</div>
+					<div class="modal-body">					
+						<div class="form-group">
+							<input type="text" class="form-control" required placeholder="Nombre" name="nombre">
+						</div>
+						<div class="form-group">
+							<input type="password" class="form-control" required placeholder="Contraseña" name="pass">
+						</div>
+											
+					</div>
+					<div class="modal-footer">
+                        <!--EL BOTON DE ACEPTAR SE DEBE CAMBIAR A SUBMIT CUANDO SE IMPLEMENTE-->
+                        <input type="submit" class="btn btn-success" value="Aceptar">
+						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- EDITAR Modal HTML -->
+	<div id="editar" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">						
+						<h4 class="modal-title">Editar Datos De Usuario</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">					
+						<div class="form-group">
+							<input type="text" class="form-control" required placeholder="Nombre">
+						</div>
+						<div class="form-group">
+							<input type="password" class="form-control" required placeholder="Contraseña">
+						</div>				
+					</div>
+					<div class="modal-footer">
+                        <!--EL BOTON DE ACEPTAR SE DEBE CAMBIAR A SUBMIT CUANDO SE IMPLEMENTE-->
+                        <input type="button" class="btn btn-info" value="Aceptar">
+						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- Delete Modal HTML -->
+	<div id="borrar" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header bg-warning">						
+						<h4 class="modal-title"><strong>Borrar</strong> Usuario</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">					
+						<p>¿Estás Seguro De Borrar A Este Usuario?</p>
+						<p class="text-danger"><meduim>Esta acción no se puede revertir</meduim></p>
+					</div>
+					<div class="modal-footer">
+						<!--EL BOTON DE ACEPTAR SE DEBE CAMBIAR A SUBMIT CUANDO SE IMPLEMENTE-->
+                        <input type="button" class="btn btn-info" value="Aceptar">
+						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>

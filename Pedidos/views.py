@@ -13,7 +13,7 @@ def menuPrincipal(request):
     return render(request, 'Pedidos/menu.html')
 
 def usuarios(request):
-    return HttpResponse('usuarios')
+    return render(request, 'Pedidos/usuarios.html')
 
 def proveedores(request):
     return HttpResponse('proveedores')
