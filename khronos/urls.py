@@ -16,6 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+#Importo las vistas de la aplicacion "Pedidos"
+from Pedidos import views
+
+#Acá se especifican las urls
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    #Rutas De La Aplicacion "Pedidos"
+    path('', views.logIn, name='LogIn'),
+    path('menu', views.menuPrincipal, name='Menu'),
+    path('usuarios', views.usuarios, name='Usuarios'),
+    path('proveedores', views.proveedores, name='Proveedores'),
+    path('pedidos', views.pedidos, name="Pedidos"),
+    path('ingresos', views.ingresos, name='Ingresos'),
 ]
