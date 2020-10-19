@@ -17,9 +17,7 @@ from Pedidos import views
 #creo la lista con las urls en las que van a estar TODAS las urls
 #de la aplicación "Pedidos"
 urlpatterns = [
-    path('', views.logIn, name='LogIn'),
     path('menu', views.menuPrincipal, name='Menu'),
-    path('usuarios', views.usuarios, name='Usuarios'),
     path('proveedores', views.proveedores, name='Proveedores'),
     path('pedidos', views.pedidos, name="Pedidos"),
     path('ingresos', views.ingresos, name='Ingresos'),

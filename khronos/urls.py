@@ -24,4 +24,8 @@ urlpatterns = [
 
     #Importo urls de aplicación Pedidos
     path('', include('Pedidos.urls')),
+
+    path('', include('Usuarios.urls')),
+
+    path('accounts/', include('django.contrib.auth.urls'))
 ]
