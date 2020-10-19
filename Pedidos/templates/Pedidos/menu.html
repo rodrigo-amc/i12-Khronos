@@ -32,22 +32,22 @@
             <div class="collapse navbar-collapse text-right" id="menuitems">
                 <ul class="navbar-nav ml-auto"><!--Cada li contiene un <a>. ml-auto va a alinear los items a la derecha (ocupa todo el espacio disponible) -->
                     <li class="nav-item">
-                        <a href="#" class="nav-link" onclick="$.get( './usuarios', function( data ){$( '#content' ).html( data ); });">Usuarios</a>
+                        <a href="#" class="nav-link" onclick="$.get( 'usuarios', function( data ){$( '#content' ).html( data );});"> Usuarios</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link" onclick="$.get( './proveedores', function( data ){$( '#content' ).html( data );});"> Proveedores</a>
+                        <a href="#" class="nav-link" onclick="$.get( 'proveedores', function( data ){$( '#content' ).html( data );});"> Proveedores</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link" onclick="$.get( './pedidos', function( data ){$( '#content' ).html( data );});"> Pedidos</a>
+                        <a href="#" class="nav-link" onclick="$.get( 'pedidos', function( data ){$( '#content' ).html( data );});"> Pedidos</a>
                     </li>
                     
                     <li class="nav-item">
-                        <a href="#" class="nav-link" onclick="$.get('./ingresos', function(data){$('#content').html(data);});">Ingresos</a>
+                        <a href="#" class="nav-link" onclick="$.get( 'ingresos', function(data){$('#content').html(data);});">Ingresos</a>
                     </li>
 
-                    <li class="nav-item"><a href="#" class="nav-link">Cerrar Sesión</a></li>
+                    <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Cerrar Sesión</a></li>
                 </ul>
             </div>
         </div>
