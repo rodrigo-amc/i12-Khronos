@@ -7,6 +7,9 @@ from .forms import fr_CrearUsuario
 # lo uso para los mensajes de validaciones en formularios
 from django.contrib import messages
 
+# Lo uso para listar los usuarios en la vista "usuarios"
+from django.contrib.auth.models import User
+
 
 
 # Create your views here.
@@ -22,9 +25,18 @@ def logIn(request):
 #Controlador para acceder al menu de usuarios
 @login_required
 def usuarios(request):
+
+    
+
     if request.user.is_superuser:
         #is_superuser es un campo en la tabla de usuarios con valores 0 y 1. 1=verdadero 0=falso
-        return render(request, 'Usuarios/usuarios.html')
+
+        # en listUsuarios almaceno todos los usuarios y se los paso al template para listarlos
+        contexto = {
+            'listUsuarios': User.objects.all()
+        }
+
+        return render(request, 'Usuarios/usuarios.html', contexto)
 
     # Si el usuario no es administrador
     else:

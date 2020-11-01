@@ -16,73 +16,30 @@
             <thead class="table-dark bg-secondary">
                 <tr>
                     <th class="text-center" scope="col">#</th>
-                    <th class="text-center" scope="col">Usuario</th>
-                    <th class="text-center" scope="col">Contraseña</th>
+                    <th class="text-center" scope="col">Nombre</th>
+                    <th class="text-center" scope="col">Administrador</th>
                     <th class="text-center" scope="col">Acciones</th>
                 </tr>
             </thead>
 
             <tbody>
-                <!-- EJEMPLOS DE REGISTROS DATOS DUROS -->
-                <tr><!--Fila 1-->
-                    <td scope="row">1</td>
-                    <td>Thomas Hardy</td>
-                    <td>###################</td>
-                    <td class="text-center">
-                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                    </td>
-                </tr>
+                <!--
+                    En el cuerpo de la tabla itero sobre todos los usuarios en el objeto "listUsuarios"
+                    y por cada uno creo una fila con sus campos
+                -->
+                {%for usuario in listUsuarios%}
+                    <tr><!--Fila 1-->
+                        <td scope="row"> {{usuario.id}} </td>
+                        <td> {{usuario.username}} </td>
+                        <td> {{usuario.is_superuser}} </td>
+                        <td class="text-center">
+                            <!--Falta agregar el id en los botones de editar y borrar-->
+                            <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                            <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                {%endfor%}
 
-                <tr><!--Fila 2-->
-                    <td scope="row">2</td>
-                    <td>Thomas Hardy</td>
-                    <td>###################</td>
-                    <td class="text-center">
-                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                    </td>
-                </tr>
-
-                <tr><!--Fila 3-->
-                    <td scope="row">3</td>
-                    <td>Thomas Hardy</td>
-                    <td>###################</td>
-                    <td class="text-center">
-                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                    </td>
-                </tr>
-
-                <tr><!--Fila4-->
-                    <td scope="row">4</td>
-                    <td>Thomas Hardy</td>
-                    <td>###################</td>
-                    <td class="text-center">
-                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                    </td>
-                </tr>
-
-                <tr><!--Fila 5-->
-                    <td scope="row">5</td>
-                    <td>Thomas Hardy</td>
-                    <td>###################</td>
-                    <td class="text-center">
-                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                    </td>
-                </tr>
-
-                <tr><!--Fila 6-->
-                    <td scope="row">6</td>
-                    <td>Thomas Hardy</td>
-                    <td>###################</td>
-                    <td class="text-center">
-                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar" >&#xE254;</i></a>
-                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                    </td>
-                </tr>
             </tbody>
 
         </table> <!-- Fein Tabla Grilla -->
