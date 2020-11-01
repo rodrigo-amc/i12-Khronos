@@ -50,6 +50,7 @@ def usuarioNuevo(request):
             #Si los valores del formulario son válidos se guarda en bd
             if formulario.is_valid():
                 formulario.save()
+                return redirect('/usuarios')
                 
             else:
                 for mensaje in formulario.error_messages:

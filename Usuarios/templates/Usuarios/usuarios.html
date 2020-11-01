@@ -8,7 +8,6 @@
         <div class="row shadow">
             <span class="col-6 h3">Usuarios</span>
 
-            <!--<a id="btnNuevo" class="btn btn-success ml-auto" href="#Nuevo" data-toggle="modal"><span>Nuevo Usuario</span></a>-->
             <a id="btnNuevo" class="btn btn-success ml-auto" href="usuarioNuevo"><span>Nuevo Usuario</span></a>
         </div> <!-- Fin Encabezado De la Grilla -->
 
@@ -94,49 +93,6 @@
                         Acá están las ventanas modales para Editar y Borrar
  -------------------------------------------------------------------------------------------------------------------------->
 
-    <!-- NUEVO Modal HTML -->
-    {% load crispy_forms_tags %}
-	<div id="Nuevo" class="modal fade">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-
-				<form id="frNuevo" action="usuarios" method="POST">
-                    {%csrf_token%}
-
-					<div class="modal-header">						
-						<h3 class="modal-title">Nuevo Usuario</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button-->
-                            
-                        <div id="msg" class=" align-content-center">
-                            
-                        </div>
-                    </div>
-                    
-					<div class="modal-body">
-                        <!--
-                            EL formulario que se muestra está definido en
-                            la clase "fr_CrearUsuario" de forms.py.
-                        -->
-                        {{ formulario | crispy }}
-                        
-                        <!--
-                            " 'formulario' es la variable definida en el contexto de
-                            la vista 'usuarios' que la recupero al pasar el contexto
-                            en el parámetro de 'render' "
-                        -->
-
-                    </div>
-                    
-					<div class="modal-footer">
-                        <!--EL BOTONES ACEPTAR Y CANCELAR-->
-                        <input type="submit" id="btnAceptar" class="btn btn-success" value="Aceptar">
-						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
-                    </div>
-                    
-				</form>
-			</div>
-		</div>
-	</div> 
 
 	<!----------------------------------------------- EDITAR Modal HTML ----------------------------------------------->
 	<div id="editar" class="modal fade">
@@ -190,18 +146,3 @@
 
 {% endblock %}
 
-<script>
-    const formulario = $('#frNuevo');
-    formulario.addEventListener('submit', submitHandler);
-
-    function submitHandler(e){
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: '{% url "usuarios" %}',
-            data: $('#frNuevo').serialize(),
-            dataType: 'json',
-            success: ''
-        })
-    }
-</script>
