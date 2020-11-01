@@ -6,4 +6,5 @@ urlpatterns = [
 
     #gestión de usuarios
     path('usuarios', views.usuarios, name='usuarios'),
+    path('usuarioNuevo', views.usuarioNuevo, name='usuarioNuevo')
 ]

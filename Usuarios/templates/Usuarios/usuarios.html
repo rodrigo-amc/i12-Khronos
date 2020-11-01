@@ -1,4 +1,6 @@
-<body>
+{% extends 'Pedidos/menu.html' %}
+
+{%block principal%}
     <!-- Contenedor De Toda La Página -->
     <div class="container-fluid my-3 center">
         
@@ -6,7 +8,8 @@
         <div class="row shadow">
             <span class="col-6 h3">Usuarios</span>
 
-            <a class="btn btn-success ml-auto" href="#Nuevo" data-toggle="modal"><span>Nuevo Usuario</span></a>
+            <!--<a id="btnNuevo" class="btn btn-success ml-auto" href="#Nuevo" data-toggle="modal"><span>Nuevo Usuario</span></a>-->
+            <a id="btnNuevo" class="btn btn-success ml-auto" href="usuarioNuevo"><span>Nuevo Usuario</span></a>
         </div> <!-- Fin Encabezado De la Grilla -->
 
         <!-- Tabla Grilla -->
@@ -91,36 +94,51 @@
                         Acá están las ventanas modales para Editar y Borrar
  -------------------------------------------------------------------------------------------------------------------------->
 
-	<!-- NUEVO Modal HTML -->
+    <!-- NUEVO Modal HTML -->
+    {% load crispy_forms_tags %}
 	<div id="Nuevo" class="modal fade">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 
-				<form target="/usuarios/insert" method="GET">
+				<form id="frNuevo" action="usuarios" method="POST">
+                    {%csrf_token%}
+
 					<div class="modal-header">						
-						<h4 class="modal-title">Nuevo Usuario</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button-->
-					</div>
-					<div class="modal-body">					
-						<div class="form-group">
-							<input type="text" class="form-control" required placeholder="Nombre" name="nombre">
-						</div>
-						<div class="form-group">
-							<input type="password" class="form-control" required placeholder="Contraseña" name="pass">
-						</div>
-											
-					</div>
+						<h3 class="modal-title">Nuevo Usuario</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button-->
+                            
+                        <div id="msg" class=" align-content-center">
+                            
+                        </div>
+                    </div>
+                    
+					<div class="modal-body">
+                        <!--
+                            EL formulario que se muestra está definido en
+                            la clase "fr_CrearUsuario" de forms.py.
+                        -->
+                        {{ formulario | crispy }}
+                        
+                        <!--
+                            " 'formulario' es la variable definida en el contexto de
+                            la vista 'usuarios' que la recupero al pasar el contexto
+                            en el parámetro de 'render' "
+                        -->
+
+                    </div>
+                    
 					<div class="modal-footer">
-                        <!--EL BOTON DE ACEPTAR SE DEBE CAMBIAR A SUBMIT CUANDO SE IMPLEMENTE-->
-                        <input type="submit" class="btn btn-success" value="Aceptar">
+                        <!--EL BOTONES ACEPTAR Y CANCELAR-->
+                        <input type="submit" id="btnAceptar" class="btn btn-success" value="Aceptar">
 						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
-					</div>
+                    </div>
+                    
 				</form>
 			</div>
 		</div>
-	</div>
+	</div> 
 
-	<!-- EDITAR Modal HTML -->
+	<!----------------------------------------------- EDITAR Modal HTML ----------------------------------------------->
 	<div id="editar" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -147,7 +165,7 @@
 		</div>
 	</div>
 
-	<!-- Delete Modal HTML -->
+	<!---------------------------------------------- Delete Modal HTML ---------------------------------------------->
 	<div id="borrar" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -169,4 +187,21 @@
 			</div>
 		</div>
 	</div>
-</body>
+
+{% endblock %}
+
+<script>
+    const formulario = $('#frNuevo');
+    formulario.addEventListener('submit', submitHandler);
+
+    function submitHandler(e){
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "usuarios" %}',
+            data: $('#frNuevo').serialize(),
+            dataType: 'json',
+            success: ''
+        })
+    }
+</script>

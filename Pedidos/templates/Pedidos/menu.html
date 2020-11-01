@@ -34,10 +34,11 @@
                     
                     <!--Oculto el menu de usuarios a usuarios que no son administradores-->
                     {%if user.is_superuser%}
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" onclick="$.get( 'usuarios', function( data ){$( '#content' ).html( data );});"> Usuarios</a>
-                    </li>
+                        <li class="nav-item">
+                            <a href="{% url 'usuarios' %}" class=" nav-link"> Usuarios</a>
+                        </li>
                     {%endif%}
+                        
 
                     <li class="nav-item">
                         <a href="#" class="nav-link" onclick="$.get( 'proveedores', function( data ){$( '#content' ).html( data );});"> Proveedores</a>
@@ -59,7 +60,10 @@
 
  <!---------------------Acá se cargan las diferentes páginas de la aplicación por medio de Ajax----------------------------->
     <div id='content' class="container mr-auto shadow">
-        <h2 class="text-center my-4">Menu Principal</h2>
+        <!--<h2 class="text-center my-4">Menu Principal</h2>-->
+        {%block principal%}
+        
+        {%endblock%}
     </div>
 <!-------------------------------------------------------------------------------------------------------------------------->
 

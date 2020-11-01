@@ -1,0 +1,32 @@
+{% extends 'Pedidos/menu.html' %}
+
+{% block principal %}
+
+    {% load crispy_forms_tags %}
+
+    <div class="container-fluid text-center p-4 shadow col-md-6 my-5">
+        <h2>Crear Usuario</h2>
+        <div class="row">
+            <div class="col-12">
+                </div>
+                    <div class="container p-4">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            
+                            <!--
+                                EL formulario que se muestra está definido en
+                                la clase "fr_CrearUsuario" de forms.py
+                                Se envía al template por la variable, definida en el controlador "usuarioNuevo"
+                                que define en el contexto (un diccionario) la variable 'formulario'
+                            -->
+                            {{ formulario | crispy }}
+
+                            
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="reset" class="btn btn-danger">Cancelar</button>
+                        </form>
+                   </div>
+            </div>
+    </div>
+
+{% endblock %}
