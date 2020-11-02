@@ -28,13 +28,25 @@
                     y por cada uno creo una fila con sus campos
                 -->
                 {%for usuario in listUsuarios%}
-                    <tr><!--Fila 1-->
+                    <tr>
                         <td scope="row"> {{usuario.id}} </td>
                         <td> {{usuario.username}} </td>
-                        <td> {{usuario.is_superuser}} </td>
+                        <td class=" text-center font-weight-bold">
+                            {%if usuario.is_superuser%}
+                                SI
+                            {%endif%}
+                        </td>
                         <td class="text-center">
-                            <!--Falta agregar el id en los botones de editar y borrar-->
-                            <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                            
+                            <!-- Boton para editar
+                                En el href le paso la ruta y el id del usuario para que lo reciba como parámetro
+                                en el path (urls.py) por url
+                            -->
+                            <a href="{% url 'usuarioEditar' usuario.id %}">
+                                <i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i>
+                            </a>
+
+
                             <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
                         </td>
                     </tr>
