@@ -124,3 +124,12 @@ def usuarioEditar(request, id):
         return HttpResponse('Solo Disponible Para Usuario Administrador')
 
 
+#Controlador para Borrar Usuario
+def usuarioBorrar(request, id):
+    #return HttpResponse('Usuario {}'.format(id))
+
+    usuario = User.objects.get(pk=id)
+
+    usuario.delete()
+
+    return redirect('/usuarios')

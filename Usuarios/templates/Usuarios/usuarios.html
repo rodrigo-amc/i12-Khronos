@@ -1,6 +1,7 @@
 {% extends 'Pedidos/menu.html' %}
 
 {%block principal%}
+    
     <!-- Contenedor De Toda La Página -->
     <div class="container-fluid my-3 center">
         
@@ -30,12 +31,13 @@
                 {%for usuario in listUsuarios%}
                     <tr>
                         <td scope="row"> {{usuario.id}} </td>
-                        <td> {{usuario.username}} </td>
+                        <td class="nombreUsuario"> {{usuario.username}} </td>
                         <td class=" text-center font-weight-bold">
                             {%if usuario.is_superuser%}
                                 SI
                             {%endif%}
                         </td>
+
                         <td class="text-center">
                             
                             <!-- Boton para editar
@@ -46,10 +48,20 @@
                                 <i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i>
                             </a>
 
+                            <!--<a href="#borrar" data-toggle="modal">
+                                <i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i>
+                            </a>-->
 
-                            <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
+                            <form action="{% url 'usuarioBorrar' usuario.id %}" method="POST" class="d-inline frborrar">
+                                {%csrf_token%}
+                                <button type="submit" class="btn" id="borrar">
+                                    <i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i>
+                                </button>
+                            </form>
+
                         </td>
                     </tr>
+
                 {%endfor%}
 
             </tbody>
@@ -58,60 +70,91 @@
 
     </div> <!-- Fin Contenedor De Toda La Página -->
 
- <!-------------------------------------------------------------------------------------------------------------------------
-                        Acá están las ventanas modales para Editar y Borrar
- -------------------------------------------------------------------------------------------------------------------------->
-
-
-	<!----------------------------------------------- EDITAR Modal HTML ----------------------------------------------->
-	<div id="editar" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form>
-					<div class="modal-header">						
-						<h4 class="modal-title">Editar Datos De Usuario</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">					
-						<div class="form-group">
-							<input type="text" class="form-control" required placeholder="Nombre">
-						</div>
-						<div class="form-group">
-							<input type="password" class="form-control" required placeholder="Contraseña">
-						</div>				
-					</div>
-					<div class="modal-footer">
-                        <!--EL BOTON DE ACEPTAR SE DEBE CAMBIAR A SUBMIT CUANDO SE IMPLEMENTE-->
-                        <input type="button" class="btn btn-info" value="Aceptar">
-						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
 	<!---------------------------------------------- Delete Modal HTML ---------------------------------------------->
-	<div id="borrar" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form>
-					<div class="modal-header bg-warning">						
-						<h4 class="modal-title"><strong>Borrar</strong> Usuario</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">					
-						<p>¿Estás Seguro De Borrar A Este Usuario?</p>
-						<p class="text-danger"><meduim>Esta acción no se puede revertir</meduim></p>
-					</div>
-					<div class="modal-footer">
-						<!--EL BOTON DE ACEPTAR SE DEBE CAMBIAR A SUBMIT CUANDO SE IMPLEMENTE-->
-                        <input type="button" class="btn btn-info" value="Aceptar">
-						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+    
+    <div id="borrar" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="frmodal" action="">
+                    <div class="modal-header bg-warning">						
+                        <h4 class="modal-title"><strong>Borrar</strong> {{usr.username}}</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">					
+                        <p>¿Estás Seguro De Borrar A Este Usuario?</p>
+                        <p class="text-danger"><meduim>Esta acción no se puede revertir</meduim></p>
+                    </div>
+                    <div class="modal-footer">
+                        
+                        <input type="submit" class="btn btn-primary" value="Aceptar">
+                        <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
 
 {% endblock %}
 
+{%block jquery%}
+    <script>
+        
+        $(document).ready(function(){
+            /*
+            //Selecciono el formulario y evito que se haga el envío (submit)
+            $(".frborrar").submit(function(e){
+                e.preventDefault(e);
+
+                //Obtengo la ruta de cada form ("usuarioBorrar/ID")
+                var ruta = $(this).attr('action');
+                //alert(ruta);
+
+                // En esta variable guardo el valor de un alert de confirmación
+                var confirmar = confirm("TA' SEGURO VO?\n" + ruta);
+
+                // Si el confirm devuelve "true", de decir se presiona "ok", me lleva a la
+                // ruta del form.
+                if (confirmar == true) {
+                    window.location.href = ruta;
+                }
+                
+            });
+            */
+
+            //Lo mismo que arriba pero con un alert mas lindo...
+            $(".frborrar").submit(function(e){
+                e.preventDefault(e);
+                var ruta = $(this).attr('action');
+
+                //Acá uso el plugin "JQUERY-CONFIRM"
+                $.confirm({
+                    theme: 'bootstrap',
+                    title: 'BORRAR USUARIO!',
+                    content: 'Esta Acción No Se Puede Revertir',
+                    buttons: {
+                        //Primer boton
+                        danger:{
+                            text:'SI',
+                            btnClass:' btn-danger ',
+                            action: function(){
+                                window.location.href=ruta;
+                            }
+                        },
+                        //Segundo boton
+                        info:{
+                            text: 'No',
+                            btnClass: 'btn-info',
+                            action: function(){
+                                this.close();
+                            }
+                        }
+                    }
+                });
+            });
+
+        });
+    </script>
+{%endblock%}

@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!--Bootstrap css-->
+   
     {% load static %}
+     <!--Bootstrap css-->
     <link type="text/css" rel="stylesheet" href="{% static 'Pedidos/css/bootstrap.min.css' %}">
+
+    <!--jquery-confirm css. Para crear alerts y confirm jquery con estilos css. Abajo está el js-->
+    <!-- https://craftpip.github.io/jquery-confirm/ -->
+    <link type="text/css" rel="stylesheet" href="{% static 'Pedidos/css/jquery-confirm.css' %}">
+
+    <!--Iconos de google-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>Khronos - Menu Principal</title>
 </head>
@@ -69,8 +76,21 @@
 
 </body>
 
+
     <!-- jQuery, Popper, Bootstrap -->
     <script src="{% static 'Pedidos/js/jquery-3.5.1.min.js' %}"></script>
     <script src="{% static 'Pedidos/js/popper.min.js' %}"></script>
     <script src="{% static 'Pedidos/js/bootstrap.min.js' %}"></script>
+    
+    <!--plugin para alerts de javascript (jquery) con estilos css y funciones varias-->
+    <script src="{% static 'Pedidos/js/jquery-confirm.js' %}"></script>
+    
+    {%block jquery%}
+        <!--Este bloque lo tengo que usar en los html que hereden de este template
+            si quiero usar jquery porque sino el script (que tiene que estar abajo
+            de la llamada a jquery) quedaría fuera del bloque "principal" y no se
+            renderiza. Ver usuarios.html 
+        -->
+    {%endblock%}
+
 </html>
