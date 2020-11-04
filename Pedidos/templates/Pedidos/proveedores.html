@@ -1,4 +1,7 @@
-<body>
+{% extends 'Pedidos/menu.html' %}
+
+{%block principal%}
+
     <!-- Contenedor De Toda La Página -->
     <div class="container-fluid my-3 center">
         
@@ -6,7 +9,7 @@
         <div class="row shadow">
             <span class="col-6 h3">Proveedores</span>
 
-            <a class="btn btn-success ml-auto" href="#Nuevo" data-toggle="modal"><span>Nuevo Proveedor</span></a>
+            <a class="btn btn-success ml-auto" href="{% url 'provnuevo' %}"><span>Nuevo Proveedor</span></a>
         </div> <!-- Fin Encabezado De la Grilla -->
 
         <!-- Tabla Grilla -->
@@ -105,40 +108,6 @@
                         Acá están las ventanas modales para Editar y Borrar
  -------------------------------------------------------------------------------------------------------------------------->
 
-	<!-- NUEVO Modal HTML -->
-	<div id="Nuevo" class="modal fade">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<form>
-					<div class="modal-header">						
-						<h4 class="modal-title">Nuevo Proveedor</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button-->
-					</div>
-					<div class="modal-body">					
-						<div class="form-group">
-							<input type="text" class="form-control" required placeholder="Nombre" >
-						</div>
-						<div class="form-group">
-							<input type="text" class="form-control" required placeholder="Domicilio">
-						</div>
-                        <div class="form-group">
-							<input type="text" class="form-control" required placeholder="Telefono">
-						</div>
-                        <div class="form-group">
-							<input type="email" class="form-control" required placeholder="Email">
-						</div>
-											
-					</div>
-					<div class="modal-footer">
-                        <!--EL BOTON DE ACEPTAR SE DEBE CAMBIAR A SUBMIT CUANDO SE IMPLEMENTE-->
-                        <input type="button" class="btn btn-success" value="Aceptar">
-						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
     <!-- EDITAR Modal HTML -->
 	<div id="editar" class="modal fade">
 		<div class="modal-dialog">
@@ -194,4 +163,4 @@
 			</div>
 		</div>
 	</div>
-</body>
+{%endblock%}

@@ -37,7 +37,8 @@
 
             <!--Items Del Menu De Navegación-->
             <div class="collapse navbar-collapse text-right" id="menuitems">
-                <ul class="navbar-nav ml-auto"><!--Cada li contiene un <a>. ml-auto va a alinear los items a la derecha (ocupa todo el espacio disponible) -->
+                <ul class="navbar-nav ml-auto">
+                <!--Cada li contiene un <a>. ml-auto va a alinear los items a la derecha (ocupa todo el espacio disponible) -->
                     
                     <!--Oculto el menu de usuarios a usuarios que no son administradores-->
                     {%if user.is_superuser%}
@@ -48,7 +49,7 @@
                         
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link" onclick="$.get( 'proveedores', function( data ){$( '#content' ).html( data );});"> Proveedores</a>
+                        <a href="{% url 'Proveedores' %}" class="nav-link" > Proveedores</a>
                     </li>
 
                     <li class="nav-item">
