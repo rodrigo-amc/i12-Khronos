@@ -62,7 +62,15 @@ def provEditar(request, id):
                 return render(request, 'Pedidos/proveedoresForm.html', {'formProveedor': frEditar, 'titulo':'Editar Proveedor'})
         
         return redirect('/proveedores')
-        
+
+
+@login_required
+def provBorrar(request, id):
+    #return HttpResponse('ID Seleccionado: {}'.format(id))
+    provID = Proveedor.objects.get(pk=id)
+    provID.delete()
+    return redirect('/proveedores')
+
 #endregion Proveedores
 
 @login_required

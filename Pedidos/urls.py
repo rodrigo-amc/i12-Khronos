@@ -23,8 +23,12 @@ urlpatterns = [
     path('proveedores', views.proveedores, name='Proveedores'),
     path('provnuevo', views.provNuevo, name='provnuevo'),
     path('provEditar/<int:id>', views.provEditar, name='provEditar'),
+    path('provBorrar/<int:id>', views.provBorrar, name='provBorrar'),
 
+    # Pedidos
     path('pedidos', views.pedidos, name="Pedidos"),
+
+    #Ingresos
     path('ingresos', views.ingresos, name='Ingresos'),
 ]
 

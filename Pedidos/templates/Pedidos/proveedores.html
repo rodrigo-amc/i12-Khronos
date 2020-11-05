@@ -35,10 +35,20 @@
                         <td> {{proveedor.telefono}} </td>
                         <td> {{proveedor.email}} </td>
                         <td class="text-center">
+                            
+                            <!--Editar-->
                             <a href="{% url 'provEditar' proveedor.id %}">
                                 <i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i>
                             </a>
-                            <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
+
+                            <!--Borrar. Despues hay que cambiarlo para Deshabilitar en vez de borrar-->
+                            <form action="{% url 'provBorrar' proveedor.id %}" method="POST" class="d-inline frborrar">
+                                {% csrf_token %}
+                                <button type="submit" class="btn" id="borrar">
+                                    <i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i>
+                                </button>
+                            </form>
+                            
                         </td>
                     </tr>
                 {% endfor %}
@@ -76,3 +86,44 @@
 		</div>
 	</div>
 {%endblock%}
+
+
+{% block jquery %}
+<script>
+        
+    $(document).ready(function(){
+
+        $(".frborrar").submit(function(e){
+            e.preventDefault(e);
+            var ruta = $(this).attr('action');
+
+            //Acá uso el plugin "JQUERY-CONFIRM"
+            $.confirm({
+                theme: 'bootstrap',
+                title: 'BORRAR PROVEEDOR!',
+                content: 'Esta Acción No Se Puede Revertir',
+                buttons: {
+                    //Primer boton
+                    danger:{
+                        text:'SI',
+                        btnClass:' btn-danger ',
+                        action: function(){
+                            window.location.href=ruta;
+                        }
+                    },
+                    //Segundo boton
+                    info:{
+                        text: 'No',
+                        btnClass: 'btn-info',
+                        action: function(){
+                            this.close();
+                        }
+                    }
+                }
+            });
+        });
+
+    });
+</script>
+{% endblock jquery %}
+    
