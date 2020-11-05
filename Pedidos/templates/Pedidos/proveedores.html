@@ -26,78 +26,23 @@
             </thead>
 
             <tbody>
-                <!-- EJEMPLOS DE REGISTROS DATOS DUROS -->
-                <tr><!--Fila 1-->
-                    <td scope="row">1</td>
-                    <td>Thomas Hardy</td>
-                    <td>89 Chiaroscuro Rd, Portland, USA</td>
-                    <td>(171) 555-2222</td>
-                    <td>thomashardy@mail.com</td>
-                    <td class="text-center">
-                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                    </td>
-                </tr>
-
-                <tr><!--Fila 2-->
-                    <td scope="row">2</td>
-                    <td>Thomas Hardy</td>
-                    <td>89 Chiaroscuro Rd, Portland, USA</td>
-                    <td>(171) 555-2222</td>
-                    <td>thomashardy@mail.com</td>
-                    <td class="text-center">
-                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                    </td>
-                </tr>
-
-                <tr><!--Fila 3-->
-                    <td scope="row">3</td>
-                    <td>Thomas Hardy</td>
-                    <td>89 Chiaroscuro Rd, Portland, USA</td>
-                    <td>(171) 555-2222</td>
-                    <td>thomashardy@mail.com</td>
-                    <td class="text-center">
-                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                    </td>
-                </tr>
-
-                <tr><!--Fila4-->
-                    <td scope="row">4</td>
-                    <td>Thomas Hardy</td>
-                    <td>89 Chiaroscuro Rd, Portland, USA</td>
-                    <td>(171) 555-2222</td>
-                    <td>thomashardy@mail.com</td>
-                    <td class="text-center">
-                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                    </td>
-                </tr>
-
-                <tr><!--Fila 5-->
-                    <td scope="row">5</td>
-                    <td>Thomas Hardy</td>
-                    <td>89 Chiaroscuro Rd, Portland, USA</td>
-                    <td>(171) 555-2222</td>
-                    <td>thomashardy@mail.com</td>
-                    <td class="text-center">
-                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                    </td>
-                </tr>
-
-                <tr><!--Fila 6-->
-                    <td scope="row">6</td>
-                    <td>Thomas Hardy</td>
-                    <td>89 Chiaroscuro Rd, Portland, USA</td>
-                    <td>(171) 555-2222</td>
-                    <td>thomashardy@mail.com</td>
-                    <td class="text-center">
-                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar" >&#xE254;</i></a>
-                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                    </td>
-                </tr>
+                
+                {% for proveedor in proveedores %}
+                    <tr>
+                        <td scope="row">{{proveedor.id}}</td>
+                        <td> {{proveedor.nombre}} </td>
+                        <td> {{proveedor.domicilio}} </td>
+                        <td> {{proveedor.telefono}} </td>
+                        <td> {{proveedor.email}} </td>
+                        <td class="text-center">
+                            <a href="{% url 'provEditar' proveedor.id %}">
+                                <i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i>
+                            </a>
+                            <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                
             </tbody>
 
         </table> <!-- Fein Tabla Grilla -->
@@ -107,39 +52,6 @@
  <!-------------------------------------------------------------------------------------------------------------------------
                         Acá están las ventanas modales para Editar y Borrar
  -------------------------------------------------------------------------------------------------------------------------->
-
-    <!-- EDITAR Modal HTML -->
-	<div id="editar" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form>
-					<div class="modal-header">						
-						<h4 class="modal-title">Editar Datos De Proveedor</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">					
-						<div class="form-group">
-							<input type="text" class="form-control" required placeholder="Nombre">
-						</div>
-						<div class="form-group">
-							<input type="text" class="form-control" required placeholder="Domicilio">
-						</div>
-                        <div class="form-group">
-							<input type="text" class="form-control" required placeholder="Telefono">
-						</div>
-                        <div class="form-group">
-							<input type="email" class="form-control" required placeholder="Email">
-						</div>
-					</div>
-					<div class="modal-footer">
-                        <!--EL BOTON DE ACEPTAR SE DEBE CAMBIAR A SUBMIT CUANDO SE IMPLEMENTE-->
-                        <input type="button" class="btn btn-info" value="Aceptar">
-						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
 
 	<!-- BORRAR Modal HTML -->
 	<div id="borrar" class="modal fade">

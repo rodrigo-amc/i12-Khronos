@@ -4,6 +4,7 @@ from django.contrib import messages
 
 # Importo formularios
 from .forms import frProveedor
+from .models import Proveedor
 
 # Create your views here.
 # En Django (MTV) las vistas son los controladores de MVC
@@ -20,7 +21,10 @@ def menuPrincipal(request):
 #region Controladores Proveedores 
 @login_required
 def proveedores(request):
-    return render(request, 'Pedidos/proveedores.html')
+                 #No es un error, es problema del ide
+    proveedores = Proveedor.objects.all()
+    return render(request, 'Pedidos/proveedores.html', {'proveedores':proveedores})
+
 
 @login_required
 def provNuevo(request):
@@ -35,11 +39,31 @@ def provNuevo(request):
         else:
             for mensaje in frpost.errors:
                 messages.error(request, frpost.errors[mensaje])
-                return render(request, 'Pedidos/proveedoresForm.html', {'formProveedor': frpost})
+                return render(request, 'Pedidos/proveedoresForm.html', {'formProveedor': frpost, 'titulo':'Nuevo Proveedor'})
     else:
-        return render(request, 'Pedidos/proveedoresForm.html', {'formProveedor': formulario})
+        return render(request, 'Pedidos/proveedoresForm.html', {'formProveedor': formulario, 'titulo':'Nuevo Proveedor'})
+
+
+@login_required
+def provEditar(request, id):
+    provID = Proveedor.objects.get(pk=id)
+    frEditar = frProveedor()
+    if request.method == 'GET':
+        frEditar = frProveedor(instance=provID)
+        return render(request, 'Pedidos/proveedoresForm.html', {'formProveedor':frEditar, 'titulo':'Editar Proveedor'})
+    else:
+        frEditar = frProveedor(request.POST, instance=provID)
+
+        if frEditar.is_valid():
+            frEditar.save()
+        else:
+            for mensaje in frEditar.errors:
+                messages.error(request, frEditar.errors[mensaje])
+                return render(request, 'Pedidos/proveedoresForm.html', {'formProveedor': frEditar, 'titulo':'Editar Proveedor'})
         
-#endregion
+        return redirect('/proveedores')
+        
+#endregion Proveedores
 
 @login_required
 def pedidos(request):
@@ -48,13 +72,3 @@ def pedidos(request):
 @login_required
 def ingresos(request):
     return render(request, 'Pedidos/ingresos.html')
-
-
-def cerrarSesion(request):
-    return HttpResponse('cerrarSesión')
-
-
-
-
-
-

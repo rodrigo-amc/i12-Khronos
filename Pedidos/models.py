@@ -23,4 +23,4 @@ class Proveedor(models.Model):
     nombre      = models.CharField(max_length=(200), unique=True)
     domicilio   = models.CharField(max_length=(200))
     telefono    = models.CharField(max_length=(50))
-    email       = models.CharField(max_length=(200))
+    email       = models.EmailField()

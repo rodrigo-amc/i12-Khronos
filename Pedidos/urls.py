@@ -22,6 +22,7 @@ urlpatterns = [
     # Proveedores
     path('proveedores', views.proveedores, name='Proveedores'),
     path('provnuevo', views.provNuevo, name='provnuevo'),
+    path('provEditar/<int:id>', views.provEditar, name='provEditar'),
 
     path('pedidos', views.pedidos, name="Pedidos"),
     path('ingresos', views.ingresos, name='Ingresos'),
