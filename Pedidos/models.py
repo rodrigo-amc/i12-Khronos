@@ -24,3 +24,7 @@ class Proveedor(models.Model):
     domicilio   = models.CharField(max_length=(200))
     telefono    = models.CharField(max_length=(50))
     email       = models.EmailField()
+
+class Cerveza(models.Model):
+    nombre = models.CharField(max_length=200, unique=True)
+    proveedor = models.ManyToManyField(Proveedor)

@@ -1,0 +1,30 @@
+{% extends 'Pedidos/menu.html' %}
+
+{% block principal %}
+
+    {% load crispy_forms_tags %}
+
+    <div id="Nuevo">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-header">						
+                        <h4 class="modal-title">{{titulo}}</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button-->
+                    </div>
+                    <div class="modal-body">					
+                        
+                        {{ formCerveza | crispy }}
+                                            
+                    </div>
+                    <div class="modal-footer">
+                        
+                        <input type="submit" class="btn btn-success" value="Aceptar">
+                        <a href="{% url 'cervezas' %}" class="btn btn-danger">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

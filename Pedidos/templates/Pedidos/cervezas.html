@@ -1,0 +1,103 @@
+{% extends 'Pedidos/menu.html' %}
+
+{%block principal%}
+
+    <!-- Contenedor De Toda La Página -->
+    <div class="container-fluid my-3 center">
+        
+        <!-- Encabezado De la Grilla -->
+        <div class="row shadow">
+            <span class="col-6 h3">Cervezas</span>
+
+            <a class="btn btn-success ml-auto" href="{% url 'cervNuevo' %}"><span>Nuevo Proveedor</span></a>
+        </div> <!-- Fin Encabezado De la Grilla -->
+
+        <!-- Tabla Grilla -->
+        <table class="table-sm table-responsive table-hover my-2">
+            <thead class="table-dark bg-secondary">
+                <tr>
+                    <th class="text-center" scope="col">#</th>
+                    <th class="text-center" scope="col">Nombre</th>
+                    <th class="text-center" scope="col">Domicilio</th>
+                    <th class="text-center" scope="col">Telefono</th>
+                    <th class="text-center" scope="col">Email</th>
+                    <th class="text-center" scope="col">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                
+                {% for cerveza in cervezas %}
+                    <tr>
+                        <td scope="row">{{cerveza.id}}</td>
+                        <td> {{cerveza.nombre}} </td>
+                        <td> {{cerveza.domicilio}} </td>
+                        <td> {{cerveza.telefono}} </td>
+                        <td> {{cerveza.email}} </td>
+                        <td class="text-center">
+                            
+                            <!--Editar-->
+                            <a href="{% url 'cervEditar' cerveza.id %}">
+                                <i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i>
+                            </a>
+
+                            <!--Borrar. Despues hay que cambiarlo para Deshabilitar en vez de borrar-->
+                            <form action="{% url 'cervBorrar' cerveza.id %}" method="POST" class="d-inline frborrar">
+                                {% csrf_token %}
+                                <button type="submit" class="btn" id="borrar">
+                                    <i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i>
+                                </button>
+                            </form>
+                            
+                        </td>
+                    </tr>
+                {% endfor %}
+                
+            </tbody>
+
+        </table> <!-- Fein Tabla Grilla -->
+
+    </div> <!-- Fin Contenedor De Toda La Página -->
+
+{%endblock%}
+
+
+{% block jquery %}
+<script>
+        
+    $(document).ready(function(){
+
+        $(".frborrar").submit(function(e){
+            e.preventDefault(e);
+            var ruta = $(this).attr('action');
+
+            //Acá uso el plugin "JQUERY-CONFIRM"
+            $.confirm({
+                theme: 'bootstrap',
+                title: 'BORRAR CERVEZA!',
+                content: 'Esta Acción No Se Puede Revertir',
+                buttons: {
+                    //Primer boton
+                    danger:{
+                        text:'SI',
+                        btnClass:' btn-danger ',
+                        action: function(){
+                            window.location.href=ruta;
+                        }
+                    },
+                    //Segundo boton
+                    info:{
+                        text: 'No',
+                        btnClass: 'btn-info',
+                        action: function(){
+                            this.close();
+                        }
+                    }
+                }
+            });
+        });
+
+    });
+</script>
+{% endblock jquery %}
+    

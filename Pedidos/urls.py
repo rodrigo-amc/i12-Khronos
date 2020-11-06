@@ -25,6 +25,12 @@ urlpatterns = [
     path('provEditar/<int:id>', views.provEditar, name='provEditar'),
     path('provBorrar/<int:id>', views.provBorrar, name='provBorrar'),
 
+    # Cervezas
+    path('cervezas', views.cervezas, name='cervezas'),
+    path('cervNuevo', views.cervNuevo, name='cervNuevo'),
+    path('cervEditar', views.cervEditar, name='cervEditar'),
+    path('cervBorrar', views.cervBorrar, name='cervBorrar'),
+    
     # Pedidos
     path('pedidos', views.pedidos, name="Pedidos"),
 

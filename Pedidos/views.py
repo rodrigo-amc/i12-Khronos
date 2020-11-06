@@ -73,9 +73,32 @@ def provBorrar(request, id):
 
 #endregion Proveedores
 
+
+#region Cervezas
+@login_required
+def cervezas(request):
+    return render(request, 'Pedidos/cervezas.html')
+
+
+@login_required
+def cervNuevo(request):
+    return render(request, 'Pedidos/cervezasForm.html')
+
+
+@login_required
+def cervEditar(request):
+    return HttpResponse('Cervezas Editar')
+
+
+@login_required
+def cervBorrar(request):
+    return HttpResponse('Cervezas Borrar')
+#endregion Cervezas
+
 @login_required
 def pedidos(request):
     return render(request, 'Pedidos/pedidos.html')
+
 
 @login_required
 def ingresos(request):
