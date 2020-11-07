@@ -95,7 +95,6 @@ def cervezas(request):
     return render(request, 'Pedidos/cervezas.html', {'cervezas':cs})
 
 
-
 @login_required
 def cervNuevo(request):
     formulario = frCerveza()
@@ -112,12 +111,25 @@ def cervNuevo(request):
     else:
         return render(request, 'Pedidos/cervezasForm.html', {'formCerveza':formulario, 'titulo':'Nueva Cerveza'})
 
-    
-
 
 @login_required
 def cervEditar(request, id):
-    return HttpResponse('Cervezas Editar id:{}'.format(id))
+    cervEdit = Cerveza.objects.get(pk=id)
+    frEditar = frCerveza()
+    if request.method == 'GET':
+        frEditar = frCerveza(instance=cervEdit)
+        return render(request, 'Pedidos/cervezasForm.html', {'formCerveza':frEditar, 'titulo':'Editar Cerveza'})
+    else:
+        frEditar = frCerveza(request.POST, instance=cervEdit)
+
+        if frEditar.is_valid():
+            frEditar.save()
+        else:
+            for mensaje in frEditar.errors:
+                messages.error(request, frEditar.errors[mensaje])
+                return render(request, 'Pedidos/cervezasForm.html', {'formCerveza': frEditar, 'titulo':'Editar Cerveza'})
+        
+        return redirect('/cervezas')
 
 
 @login_required
