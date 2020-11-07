@@ -133,8 +133,12 @@ def cervEditar(request, id):
 
 
 @login_required
-def cervBorrar(request):
-    return HttpResponse('Cervezas Borrar')
+def cervBorrar(request, id):
+    #return HttpResponse('Cervezas Borrar id: {}'.format(id))
+    cervDel = Cerveza.objects.get(pk=id)
+    cervDel.delete()
+    return redirect('/cervezas')
+
 #endregion Cervezas
 
 @login_required

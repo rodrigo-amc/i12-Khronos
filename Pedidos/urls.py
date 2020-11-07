@@ -29,7 +29,7 @@ urlpatterns = [
     path('cervezas', views.cervezas, name='cervezas'),
     path('cervNuevo', views.cervNuevo, name='cervNuevo'),
     path('cervEditar/<int:id>', views.cervEditar, name='cervEditar'),
-    path('cervBorrar', views.cervBorrar, name='cervBorrar'),
+    path('cervBorrar/<int:id>', views.cervBorrar, name='cervBorrar'),
     
     # Pedidos
     path('pedidos', views.pedidos, name="Pedidos"),
