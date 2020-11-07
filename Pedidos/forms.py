@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Proveedor
+from .models import Proveedor, Cerveza
 
 # Ver Usuarios/forms.py
 
@@ -11,4 +11,9 @@ class frProveedor(ModelForm):
     class Meta:
         model = Proveedor
 
+        fields = '__all__'
+
+class frCerveza(ModelForm):
+    class Meta:
+        model = Cerveza
         fields = '__all__'

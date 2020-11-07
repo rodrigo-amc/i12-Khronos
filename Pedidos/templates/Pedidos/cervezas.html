@@ -18,39 +18,46 @@
                 <tr>
                     <th class="text-center" scope="col">#</th>
                     <th class="text-center" scope="col">Nombre</th>
-                    <th class="text-center" scope="col">Domicilio</th>
-                    <th class="text-center" scope="col">Telefono</th>
-                    <th class="text-center" scope="col">Email</th>
-                    <th class="text-center" scope="col">Acciones</th>
+                    <th class="text-center" scope="col">Proveedor</th>
                 </tr>
             </thead>
 
             <tbody>
                 
-                {% for cerveza in cervezas %}
-                    <tr>
-                        <td scope="row">{{cerveza.id}}</td>
-                        <td> {{cerveza.nombre}} </td>
-                        <td> {{cerveza.domicilio}} </td>
-                        <td> {{cerveza.telefono}} </td>
-                        <td> {{cerveza.email}} </td>
-                        <td class="text-center">
-                            
-                            <!--Editar-->
-                            <a href="{% url 'cervEditar' cerveza.id %}">
-                                <i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i>
-                            </a>
+                <!--Itero sobre cada objeto de cervezas que es el querySet-->
+                {% for c in cervezas|dictsort:'id' %}
+                    
+                    <!--Itero sobre cada objeto proveedor de "cerveza"-->
+                    {% for p in c.proveedor.all %}
+                        <tr>
+                            <!--Imprimo el campo "id" de la cerveza-->
+                            <td scope="row">{{c.id}}</td>
 
-                            <!--Borrar. Despues hay que cambiarlo para Deshabilitar en vez de borrar-->
-                            <form action="{% url 'cervBorrar' cerveza.id %}" method="POST" class="d-inline frborrar">
-                                {% csrf_token %}
-                                <button type="submit" class="btn" id="borrar">
-                                    <i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i>
-                                </button>
-                            </form>
-                            
-                        </td>
-                    </tr>
+                            <!--Imprimo el campo "nombre" de la cerveza-->
+                            <td> {{c.nombre}} </td>
+
+                            <!--Imprimo el campo "nombre" del Proveedor-->
+                            <td> {{p.nombre}} </td>
+                            <td class="text-center">
+                                
+                                <!--Editar-->
+                                <a href="{% url 'cervEditar' c.id %}">
+                                    <i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i>
+                                </a>
+
+                                <!--Borrar. Despues hay que cambiarlo para Deshabilitar en vez de borrar-->
+                                <form action="" method="POST" class="d-inline frborrar">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn" id="borrar">
+                                        <i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i>
+                                    </button>
+                                </form>
+                                
+                            </td>
+                        </tr>
+                    {% endfor %}
+                        
+                    
                 {% endfor %}
                 
             </tbody>

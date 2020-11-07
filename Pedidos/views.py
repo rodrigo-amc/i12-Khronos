@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 # Importo formularios
-from .forms import frProveedor
-from .models import Proveedor
+from .forms import frProveedor, frCerveza
+from .models import Proveedor, Cerveza
 
 # Create your views here.
 # En Django (MTV) las vistas son los controladores de MVC
@@ -77,17 +77,47 @@ def provBorrar(request, id):
 #region Cervezas
 @login_required
 def cervezas(request):
-    return render(request, 'Pedidos/cervezas.html')
+    cs = Cerveza.objects.all()
+    #region
+    # cs es un "QuerySet", un iterable...
+    # Cada elemento de "cs" representa un objeto de tipo Cerveza.
+    # Cada Cerveza tiene el campo "proveedor", que es un querySet,
+    # El campo proveedor es una colección ce objetos Proveedor.
+    # Le paso al Template "cs" para listar las cervezas y sus
+    # Proveedores.
+
+    # Para entender el funcionamiento de QuerySet
+    # https://docs.djangoproject.com/en/3.1/topics/db/examples/many_to_many/
+
+    # Ojo, en el template no puedo usar paréntesis en los métodos
+    # por ejemplo "all()"
+    #endregion
+    return render(request, 'Pedidos/cervezas.html', {'cervezas':cs})
+
 
 
 @login_required
 def cervNuevo(request):
-    return render(request, 'Pedidos/cervezasForm.html')
+    formulario = frCerveza()
+
+    if request.method == 'POST':
+        form = frCerveza(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/cervezas')
+        else:
+            for mensaje in form.errors:
+                messages.error(request, form.errors[mensaje])
+                return render(request, 'Pedidos/cervezasForm.html', {'formCerveza': form, 'titulo':'Nueva Cerveza'})
+    else:
+        return render(request, 'Pedidos/cervezasForm.html', {'formCerveza':formulario, 'titulo':'Nueva Cerveza'})
+
+    
 
 
 @login_required
-def cervEditar(request):
-    return HttpResponse('Cervezas Editar')
+def cervEditar(request, id):
+    return HttpResponse('Cervezas Editar id:{}'.format(id))
 
 
 @login_required

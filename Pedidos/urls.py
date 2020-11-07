@@ -28,7 +28,7 @@ urlpatterns = [
     # Cervezas
     path('cervezas', views.cervezas, name='cervezas'),
     path('cervNuevo', views.cervNuevo, name='cervNuevo'),
-    path('cervEditar', views.cervEditar, name='cervEditar'),
+    path('cervEditar/<int:id>', views.cervEditar, name='cervEditar'),
     path('cervBorrar', views.cervBorrar, name='cervBorrar'),
     
     # Pedidos

@@ -25,6 +25,9 @@ class Proveedor(models.Model):
     telefono    = models.CharField(max_length=(50))
     email       = models.EmailField()
 
+    def __str__(self):
+        return self.nombre
+
 class Cerveza(models.Model):
     nombre = models.CharField(max_length=200, unique=True)
     proveedor = models.ManyToManyField(Proveedor)
