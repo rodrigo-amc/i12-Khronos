@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 # Importo formularios
-from .forms import frProveedor, frCerveza
-from .models import Proveedor, Cerveza
+from .forms import frProveedor, frCerveza, frmPedido, frmLineaPedido
+from .models import Proveedor, Cerveza, Pedido, LineaPedido
 
 # Create your views here.
 # En Django (MTV) las vistas son los controladores de MVC
@@ -141,10 +141,48 @@ def cervBorrar(request, id):
 
 #endregion Cervezas
 
+
+#region Pedidos
 @login_required
 def pedidos(request):
     return render(request, 'Pedidos/pedidos.html')
 
+
+def pedidosNuevo(request):
+    
+    ctx = {
+        'pedido': frmPedido(),
+        'linea': frmLineaPedido()
+    }
+
+    if request.method =='POST':
+        pedidoForm = ctx['pedido']=frmPedido(request.POST)
+        lineaForm = ctx['linea']=frmLineaPedido(request.POST)
+        if pedidoForm.is_valid() and lineaForm.is_valid():
+            pedidoForm.save()
+
+            #Entry.objects.order_by
+            #my_queryset.reverse()[:1]
+
+            #obtengo el último id de Pedido
+            #pdID = Pedido.objects.order_by('id').reverse()[:1]
+
+
+            lineaForm.save(False)
+            lineaForm.save_m2m(pdID)
+            lineaForm.save()
+            return redirect('Pedidos')
+
+            
+        else:
+            for mensaje in pedidoForm.errors:
+                messages.error(request, pedidoForm.errors[mensaje])
+                for lmes in lineaForm.errors:
+                    lmes.error(request, lineaForm.errors[lmes])
+                    return render(request, 'Pedidos/pedidosForm.html', ctx)
+    else:
+        return render(request, 'Pedidos/pedidosForm.html', ctx)
+#endregion Pedidos
 
 @login_required
 def ingresos(request):

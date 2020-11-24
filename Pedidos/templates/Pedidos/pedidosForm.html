@@ -1,0 +1,80 @@
+{% extends 'Pedidos/menu.html' %}
+
+{%block principal%}
+{% load crispy_forms_tags %}
+<div id="Nuevo">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <form action="" method="POST">
+                <div class="modal-header">						
+                    <h4 class="modal-title">Nuevo Pedido</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button-->
+                </div>
+                {% csrf_token %}
+                {{pedido | crispy}}
+                {{linea.as_table}}
+                
+                <div class="modal-footer">
+                    <!--EL BOTON DE ACEPTAR SE DEBE CAMBIAR A SUBMIT CUANDO SE IMPLEMENTE-->
+                    <input id="btnGuardar" type="submit" class="btn btn-success" value="Guardar" title="CTRL+G">
+                    <input type="button" class="btn btn-danger" value="Cancelar">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}
+
+{% block jquery %}
+{% endblock jquery %}
+
+<!--
+<div class="modal-body">
+
+    <div class="form-group">
+        <label for="sel1">Proveedor:</label>
+        <select class="form-control">
+            
+            {% for prov in proveedores %}
+                <option> {{prov}} </option>
+            {% endfor %}
+            
+        </select>
+    </div>
+
+    <button id="btnNuevoItem" type="button" class=" btn btn-outline-success" title="Enter">Nuevo Item</button>
+    
+
+    Grilla Para Cargar Los Pedidos
+    <table id="tblPedido" class=" table-sm table-responsive table-hover">
+        <thead class=" table-dark bg-secondary">
+            <tr>
+                <th class="text-center" scope="col"> </th>
+                <th class="text-ceter" scope="col">Tipo De Cerveza</th>
+                <th class="text-center" scope="col">Cantidad</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td class="text-center">
+                    <a href="#" data-toggle="modal">
+                        <i class="material-icons text-danger btnBorrar" data-toggle="tooltip" title="Borrar">
+                            &#xE872;
+                        </i>
+                    </a>
+                </td>
+                
+                <td>
+                    <input type="text" placeholder="Tipo De Cerveza">
+                </td>
+
+                <td>
+                    <input type="text" placeholder="Cantidad">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+                                                
+</div>
+-->

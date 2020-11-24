@@ -33,6 +33,7 @@ urlpatterns = [
     
     # Pedidos
     path('pedidos', views.pedidos, name="Pedidos"),
+    path('pedidoNuevo', views.pedidosNuevo, name='pedidoNuevo'),
 
     #Ingresos
     path('ingresos', views.ingresos, name='Ingresos'),
