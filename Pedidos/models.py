@@ -33,14 +33,3 @@ class Proveedor(models.Model):
 class Cerveza(models.Model):
     nombre = models.CharField(max_length=200, unique=True)
     proveedor = models.ManyToManyField(Proveedor)
-
-
-class LineaPedido(models.Model):
-    cantidad = models.IntegerField()
-    cerveza = models.ForeignKey(Cerveza, on_delete=models.CASCADE)
-    pedido = Pedido.fore
-
-class Pedido(models.Model):
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
-    fecha = models.DateField(auto_now_add=True)
