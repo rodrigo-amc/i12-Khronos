@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator
+
 # Create your models here.
 #region Comentarios
 # Las clases dentro de este modulo representan los modelos.
@@ -35,27 +37,30 @@ class Cerveza(models.Model):
     def __str__(self):
         return self.nombre
 
-""" 
+
+#region Modelos con relación "ForeignKey"
+""" class LineaPedido(models.Model):
+    cerveza = models.ForeignKey(Cerveza, on_delete=models.DO_NOTHING)
+    #cantidad = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
+    cantidad = models.PositiveIntegerField()
+
 class Pedido(models.Model):
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
-    cerveza = models.ManyToManyField(Cerveza, through='LineaPedido')
     fecha = models.DateField(auto_now_add=True)
+    usuario = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.DO_NOTHING)
+    lineaPedido = models.ForeignKey(LineaPedido, on_delete=models.DO_NOTHING) """
+#endregion
 
-    def __str__(self):
-        return str(self.pk)
+# Modelos con relación ManyToMany
+class Pedido(models.Model):
+    fecha = models.DateField(auto_now_add=True)
+    usuario = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.DO_NOTHING)
+    cerveza = models.ManyToManyField(Cerveza, through='LineaPedido')
 
 
-# Este es el modelo "intermedio" en la relación "N a N"
-# entre Cerveza y Pedido
-#https://docs.djangoproject.com/en/3.0/topics/db/models/#extra-fields-on-many-to-many-relationships
+
 class LineaPedido(models.Model):
-    cantidad = models.IntegerField()
+    cantidad = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
     cerveza = models.ForeignKey(Cerveza, on_delete=models.CASCADE)
-    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = [
-            ['cerveza', 'pedido']
-        ]
- """
+    Pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
