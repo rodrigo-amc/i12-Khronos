@@ -1,0 +1,54 @@
+PIP
+******************
+Instalar pip
+OJO PYTHON3
+1) sudo apt-get install python3-pip
+
+para usar pip vas a tener que tipear pip3
+o podes asignarle un alias
+alias pip3=pip
+******************
+
+
+VirtualEnvWrapper
+******************
+https://virtualenvwrapper.readthedocs.io/en/latest/
+
+1) pip install virtualenv
+2) pip install virtualenvwrapper
+
+3) export WORKON_HOME=~/Envs
+4) mkdir -p $WORKON_HOME
+5) source /usr/local/bin/virtualenvwrapper.sh
+
+Si el paso 5 da error indicando que no encuentra
+"virtualenvwrapper.sh", entonces hay que editar
+el archivo "bash.rc" con nano
+
+6) sudo nano ~/.bashrc
+Se abre el archivo, vas hasta abajo de todo
+y agregas lo siguiente:
+
+#Virtualenvwrapper settings:
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3 #La ruta en donde está el interprete de python
+export WORKON_HOME=$HOME/Envs #La carpeta en donde se guardaran los entornos virtuales (paso 3)
+export VIRTUALENVWRAPPER_VIRTUALENV=/home/TUUSUARIO/.local/bin/virtualenv
+source ~/.local/bin/virtualenvwrapper.sh
+
+7) source ~/.bashrc
+
+8) repetir paso (5)
+source /usr/local/bin/virtualenvwrapper.sh
+******************
+
+
+MySQL
+******************
+Para trabajar con python hay que instalar mysqlclient
+https://pypi.org/project/mysqlclient/
+
+1) sudo apt-get install python3-dev default-libmysqlclient-dev build-essential
+
+2) Cambias al entorno de Python en donde tengas instalado Django
+3) pip install mysqlclient
+******************
