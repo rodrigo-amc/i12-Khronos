@@ -51,7 +51,7 @@ class Pedido(models.Model):
     lineaPedido = models.ForeignKey(LineaPedido, on_delete=models.DO_NOTHING) """
 #endregion
 
-# Modelos con relación ManyToMany
+#region Modelos con relación ManyToMany
 class Pedido(models.Model):
     fecha = models.DateField(auto_now_add=True)
     usuario = models.ForeignKey(User, on_delete=models.DO_NOTHING)
@@ -59,8 +59,8 @@ class Pedido(models.Model):
     cerveza = models.ManyToManyField(Cerveza, through='LineaPedido')
 
 
-
 class LineaPedido(models.Model):
     cantidad = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
     cerveza = models.ForeignKey(Cerveza, on_delete=models.CASCADE)
-    Pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+#endregion

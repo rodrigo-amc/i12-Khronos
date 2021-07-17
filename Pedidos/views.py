@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.http import JsonResponse
 
 # Importo formularios
 from .forms import frProveedor, frCerveza, frmPedido, frmLineaPedido
@@ -150,29 +151,18 @@ def pedidos(request):
 @login_required
 def pedidosNuevo(request):
     fPed = frmPedido()
-    fLin = frmLineaPedido()
 
-    if request.method == 'POST':
+    if request.method == "POST" and request.is_ajax():
         fPed = frmPedido(request.POST)
-        fLin = frmLineaPedido(request.POST)
-
-        if fPed.is_valid() and fLin.is_valid() :
-            linea = fLin.save()
-            pedido = fPed.save(False)
-            pedido.lineaPedido = linea
-            pedido.save()
-            
-            return HttpResponse('ENTRO A ISVALID')
-        else:
-            return HttpResponse('NO VALID')
+        if fPed.is_valid():
+            fPed.save()
+            return JsonResponse({'ctrl':'ok'})
+    print(request.user.id)
     
-    return render(request, 'Pedidos/pedidosForm.html',
-    {
-        'formPedido':fPed,
-        'formLinea':fLin
-    })
+    return render(request, 'Pedidos/pedidosForm.html', {'formPedido':fPed})
+    
 
-#endregion
+#endregion pedidos
 
 
 

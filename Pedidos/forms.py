@@ -32,6 +32,9 @@ class frmPedido(ModelForm):
 class frmLineaPedido(ModelForm):
     class Meta:
         model = LineaPedido
-        fields = '__all__'
+        fields = [
+            'cerveza',
+            'cantidad'
+        ]
 
 #endregion PEDIDOS
