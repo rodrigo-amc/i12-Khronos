@@ -146,21 +146,13 @@ def cervBorrar(request, id):
 #region Pedidos
 @login_required
 def pedidos(request):
-    return render(request, 'Pedidos/pedidos.html')
+    return render(request, 'Pedidos/pedidosListado.html')
+
+
 
 @login_required
 def pedidosNuevo(request):
-    fPed = frmPedido()
-
-    if request.method == "POST" and request.is_ajax():
-        fPed = frmPedido(request.POST)
-        if fPed.is_valid():
-            fPed.save()
-            return JsonResponse({'ctrl':'ok'})
-    print(request.user.id)
-    
-    return render(request, 'Pedidos/pedidosForm.html', {'formPedido':fPed})
-    
+    return render(request, 'Pedidos/pedidosNuevo.html')
 
 #endregion pedidos
 

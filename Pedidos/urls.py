@@ -19,22 +19,25 @@ from Pedidos import views
 urlpatterns = [
     path('menu', views.menuPrincipal, name='Menu'),
 
-    # Proveedores
+    #region Proveedores
     path('proveedores', views.proveedores, name='Proveedores'),
     path('provnuevo', views.provNuevo, name='provnuevo'),
     path('provEditar/<int:id>', views.provEditar, name='provEditar'),
     path('provBorrar/<int:id>', views.provBorrar, name='provBorrar'),
+    #endregion
 
-    # Cervezas
+    #region Cervezas
     path('cervezas', views.cervezas, name='cervezas'),
     path('cervNuevo', views.cervNuevo, name='cervNuevo'),
     path('cervEditar/<int:id>', views.cervEditar, name='cervEditar'),
     path('cervBorrar/<int:id>', views.cervBorrar, name='cervBorrar'),
-    
-    # Pedidos
+    #endregion    
+
+    #region Pedidos
     path('pedidos', views.pedidos, name="Pedidos"),
     path('pedidoNuevo', views.pedidosNuevo, name='pedidoNuevo'),
-
+    #endregion
+    
     #Ingresos
     path('ingresos', views.ingresos, name='Ingresos'),
 ]
