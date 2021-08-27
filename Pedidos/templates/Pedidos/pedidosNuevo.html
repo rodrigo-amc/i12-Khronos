@@ -7,52 +7,52 @@
 
         <form action="" method="POST" class="mt-4 p-4" autocomplete="off">
 
-                <div class="form-row">
-                    <div class="form-group col-md-8">
-                        <label for="provSelect">Proveedor</label>
-                        <select class="form-control" id="provSelect">
-                            <option>Astor</option>
-                            <option>Larsen</option>
-                            <option>Fucce's</option>
-                            <option>Berlina</option>
-                            <option>Harem</option>
-                            <option>Supernova</option>
-                        </select>
-                    </div>
+            <div class="form-row">
+                <div class="form-group col-md-8">
+                    <label for="provSelect">Proveedor</label>
+                    <select class="form-control" id="provSelect">
+                        <option>Astor</option>
+                        <option>Larsen</option>
+                        <option>Fucce's</option>
+                        <option>Berlina</option>
+                        <option>Harem</option>
+                        <option>Supernova</option>
+                    </select>
                 </div>
+            </div>
 
-                <button id="btnNuevoItem" type="button" class=" btn btn-outline-success" title="Enter">Agregar Item</button>
-                
-                <!-- Grilla Para Cargar Los Pedidos -->
-                <table id="tblPedido" class=" table-sm table-responsive table-hover mt-2">
-                    <thead class=" table-dark bg-secondary">
-                        <tr>
-                            <th class="text-center" scope="col"> </th>
-                            <th class="text-ceter" scope="col">Tipo De Cerveza</th>
-                            <th class="text-center" scope="col">Cantidad</th>
-                        </tr>
-                    </thead>
+            <button id="btnNuevoItem" type="button" class=" btn btn-outline-success" title="Enter">Agregar Item</button>
+            
+            <!-- Grilla Para Cargar Los Pedidos -->
+            <table id="tblPedido" class=" table-sm table-responsive table-hover mt-2">
+                <thead class=" table-dark bg-secondary">
+                    <tr>
+                        <th class="text-center" scope="col"> </th>
+                        <th class="text-ceter" scope="col">Tipo De Cerveza</th>
+                        <th class="text-center" scope="col">Cantidad</th>
+                    </tr>
+                </thead>
 
-                    <tbody>
-                        <tr>
-                            <td class="text-center">
-                                <a href="#" data-toggle="modal">
-                                    <i class="material-icons text-danger btnBorrar" data-toggle="tooltip" title="Borrar">
-                                        &#xE872;
-                                    </i>
-                                </a>
-                            </td>
-                            
-                            <td>
-                                <input type="text" placeholder="Tipo De Cerveza">
-                            </td>
+                <tbody>
+                    <tr>
+                        <td class="text-center">
+                            <a href="#" data-toggle="modal">
+                                <i class="material-icons text-danger btnBorrar" data-toggle="tooltip" title="Borrar">
+                                    &#xE872;
+                                </i>
+                            </a>
+                        </td>
+                        
+                        <td>
+                            <input type="text" placeholder="Tipo De Cerveza">
+                        </td>
 
-                            <td>
-                                <input type="text" placeholder="Cantidad">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                        <td>
+                            <input type="text" placeholder="Cantidad">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             
             <div class="modal-footer mt-5">
                 <!--EL BOTON DE ACEPTAR SE DEBE CAMBIAR A SUBMIT CUANDO SE IMPLEMENTE-->

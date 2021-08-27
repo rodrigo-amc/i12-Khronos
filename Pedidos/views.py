@@ -4,7 +4,8 @@ from django.contrib import messages
 from django.http import JsonResponse
 
 # Importo formularios
-from .forms import frProveedor, frCerveza, frmPedido, frmLineaPedido
+from .forms import frProveedor, frCerveza
+#frmPedido, frmLineaPedido
 from .models import Proveedor, Cerveza
 
 # Create your views here.

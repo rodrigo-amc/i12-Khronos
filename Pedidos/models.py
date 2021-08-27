@@ -30,6 +30,8 @@ class Proveedor(models.Model):
     def __str__(self):
         return self.nombre
 
+
+
 class Cerveza(models.Model):
     nombre = models.CharField(max_length=200, unique=True)
     proveedor = models.ManyToManyField(Proveedor)
@@ -38,25 +40,14 @@ class Cerveza(models.Model):
         return self.nombre
 
 
-#region Modelos con relación "ForeignKey"
-""" class LineaPedido(models.Model):
-    cerveza = models.ForeignKey(Cerveza, on_delete=models.DO_NOTHING)
-    #cantidad = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
-    cantidad = models.PositiveIntegerField()
-
-class Pedido(models.Model):
-    fecha = models.DateField(auto_now_add=True)
-    usuario = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    proveedor = models.ForeignKey(Proveedor, on_delete=models.DO_NOTHING)
-    lineaPedido = models.ForeignKey(LineaPedido, on_delete=models.DO_NOTHING) """
-#endregion
-
 #region Modelos con relación ManyToMany
 class Pedido(models.Model):
     fecha = models.DateField(auto_now_add=True)
     usuario = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.DO_NOTHING)
     cerveza = models.ManyToManyField(Cerveza, through='LineaPedido')
+    fechaEntrega = models.DateField(blank=True, null=True)
+    entregado = models.BooleanField(default=False)
 
 
 class LineaPedido(models.Model):
