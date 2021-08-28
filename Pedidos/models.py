@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
+from django.db.models.fields import BLANK_CHOICE_DASH
 
 # Create your models here.
 #region Comentarios
@@ -52,6 +53,11 @@ class Pedido(models.Model):
 
 class LineaPedido(models.Model):
     cantidad = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
+    entregado = models.PositiveIntegerField(default=0, blank=True, null=True)
+    pendiente = models.PositiveIntegerField(default=0, blank=True, null=True)
     cerveza = models.ForeignKey(Cerveza, on_delete=models.CASCADE)
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.cerveza)
 #endregion

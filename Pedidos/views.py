@@ -6,7 +6,7 @@ from django.http import JsonResponse
 # Importo formularios
 from .forms import frProveedor, frCerveza
 #frmPedido, frmLineaPedido
-from .models import Proveedor, Cerveza
+from .models import Pedido, Proveedor, Cerveza
 
 # Create your views here.
 # En Django (MTV) las vistas son los controladores de MVC
@@ -147,7 +147,11 @@ def cervBorrar(request, id):
 #region Pedidos
 @login_required
 def pedidos(request):
-    return render(request, 'Pedidos/pedidosListado.html')
+    ctxPedidos = {
+        'lstPedidos' : Pedido.objects.all()
+    }
+    
+    return render(request, 'Pedidos/pedidosListado.html', ctxPedidos)
 
 
 

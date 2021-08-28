@@ -30,102 +30,33 @@
             </thead>
 
             <tbody>
-                <!-- EJEMPLOS DE REGISTROS DATOS DUROS -->
-                <tr><!--Fila 1-->
-                    <td scope="row" class="text-center">1</td><!--Numero De Pedido-->
-                    <td>Thomas Hardy</td><!--Usuario-->
-                    <td class="text-center">25/08/1820</td><!--Fecha-->
-                    <td>Astor</td><!--Proveedor-->
-                    <td>Porter</td><!--Tipo Cerveza-->
-                    <td class="text-center">5</td><!--Cantidad-->
-                    <td class="text-center">0</td><!--Entregado-->
-                    <td class="text-center">5</td><!--Pendiente-->
-                    <td class="text-center">Pendiente</td><!--Estado Del Pedido-->
-                    <td class="text-center">
-                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                    </td>
-                </tr>
+                
+                {% for pedido in lstPedidos %}
+                    {% for linea in pedido.lineapedido_set.all %}
+                        <tr>
+                            <td scope="row" class="text-center"> {{pedido.id}} </td>
+                            <td> {{pedido.usuario}} </td>
+                            <td class="text-center"> {{pedido.fecha}} </td><!--Fecha-->
+                            <td> {{pedido.proveedor}} </td><!--Proveedor-->
+                            <td> {{linea}} </td><!--Tipo Cerveza-->
+                            <td class="text-center"> {{linea.cantidad}} </td><!--Cantidad-->
+                            <td class="text-center"> {{linea.entregado}} </td><!--Entregado-->
+                            <td class="text-center"> {{linea.pendiente}} </td><!--Pendiente-->
 
-                <tr><!--Fila 2-->
-                    <td scope="row" class="text-center">2</td>
-                    <td>Thomas Hardy</td>
-                    <td class="text-center">25/08/1820</td>
-                    <td>Larsen</td>
-                    <td>Porter</td>
-                    <td class="text-center">5</td>
-                    <td class="text-center">0</td><!--Entregado-->
-                    <td class="text-center">5</td><!--Pendiente-->
-                    <td class="text-center">Pendiente</td>
-                    <td class="text-center">
-                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                    </td>
-                </tr>
+                            
+                            {% if pedido.entregado %}
+                                <td class="text-center"><b>Entregado</b></td><!--Estado Del Pedido-->
+                            {% else %}
+                                <td class="text-center">Pendiente</td><!--Estado Del Pedido-->
+                                <td class="text-center">
+                                    <a href="#editar" data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                                    <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}    
+                {% endfor %}
 
-                <tr><!--Fila 3-->
-                    <td scope="row" class="text-center">3</td>
-                    <td>Thomas Hardy</td>
-                    <td class="text-center">25/08/1820</td>
-                    <td>Fucce's</td>
-                    <td>Porter</td>
-                    <td class="text-center">5</td>
-                    <td class="text-center">0</td><!--Entregado-->
-                    <td class="text-center">5</td><!--Pendiente-->
-                    <td class="text-center">Pendiente</td>
-                    <td class="text-center">
-                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                        <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                    </td>
-                </tr>
-
-                <tr class=" bg-light"><!--Fila4-->
-                    <td scope="row" class="text-center">4</td>
-                    <td>Thomas Hardy</td>
-                    <td class="text-center">25/08/1820</td>
-                    <td>Berlina</td>
-                    <td>Porter</td>
-                    <td class="text-center">5</td>
-                    <td class="text-center">5</td><!--Entregado-->
-                    <td class="text-center">0</td><!--Pendiente-->
-                    <td class="text-center font-weight-bold">Entregado</td>
-                    <td class="text-center">
-                        <a href="#editar"   data-toggle="modal" class="btn disabled"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                        <a href="#borrar"   data-toggle="modal" class="btn disabled"><i class="material-icons text-danger"  data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                    </td>
-                </tr>
-
-                <tr><!--Fila 5-->
-                    <td scope="row" class="text-center">5</td>
-                    <td>Thomas Hardy</td>
-                    <td class="text-center">25/08/1820</td>
-                    <td>Harem</td>
-                    <td>Porter</td>
-                    <td class="text-center">5</td>
-                    <td class="text-center">0</td><!--Entregado-->
-                    <td class="text-center">5</td><!--Pendiente-->
-                    <td class="text-center">Pendiente</td>
-                    <td class="text-center">
-                        <a href="#editar"   data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                        <a href="#borrar"   data-toggle="modal"><i class="material-icons text-danger"  data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                    </td>
-                </tr>
-
-                <tr class=" bg-light"><!--Fila 6-->
-                    <td scope="row" class="text-center">6</td>
-                    <td>Thomas Hardy</td>
-                    <td class="text-center">25/08/1820</td>
-                    <td>Supernova</td>
-                    <td>Porter</td>
-                    <td class="text-center">5</td>
-                    <td class="text-center">3</td><!--Entregado-->
-                    <td class="text-center">2</td><!--Pendiente-->
-                    <td class="text-center font-weight-bold">Entregado</td>
-                    <td class="text-center">
-                        <a href="#editar"   data-toggle="modal" class="btn disabled"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                        <a href="#borrar"   data-toggle="modal" class="btn disabled"><i class="material-icons text-danger"  data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                    </td>
-                </tr>
             </tbody>
 
         </table> <!-- Fein Tabla Grilla -->
