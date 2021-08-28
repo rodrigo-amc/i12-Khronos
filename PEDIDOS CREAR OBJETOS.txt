@@ -55,3 +55,25 @@ lineaUno.save()
 # VEO LAS lineas de un Pedido
 >>> pedidoUno.lineapedido_set.all()
 <QuerySet [<LineaPedido: LineaPedido object (1)>, <LineaPedido: LineaPedido object (2)>]>
+
+# VEO LAS CERVEZAS DE UN PEDIDO
+>>> birras = pedidoUno.cerveza.all()
+>>> birras
+<QuerySet [<Cerveza: Porter>, <Cerveza: IPA>, <Cerveza: otra Birra>]>
+
+>>> for beer in birras:
+...     print(beer.nombre)
+... 
+Porter
+IPA
+otra Birra
+>>> 
+
+############ Sin crear "LineaPedido" a mano ############
+
+pedidoUno.cerveza.add(beers[2], through_defaults={'cantidad':4})
+
+# Una vez creado el pedido, agrego al campo cerveza, que es una coleccion, un nuevo objeto "Cerveza";
+# indicando que lo hago a travez del modelo definido en la relacion con "through_defaults".
+# Completo el campo extra de "LineaPedido" que es la cantidad y automaticamente se guarda
+# un nuevo objeto de "LineaPedido" en Base De Datos
