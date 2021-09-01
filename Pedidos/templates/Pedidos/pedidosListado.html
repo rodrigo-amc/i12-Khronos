@@ -9,7 +9,7 @@
         <div class="row shadow">
             <span class="col-6 h3">Pedidos</span>
 
-            <a class="btn btn-success ml-auto" href="{% url 'pedidoNuevo' %}"><span>Nuevo Pedido</span></a>
+            <a class="btn btn-success ml-auto" href="#selecProv" data-toggle="modal"><span>Nuevo Pedido</span></a>
         </div> <!-- Fin Encabezado De la Grilla -->
 
         <!-- Tabla Grilla -->
@@ -54,12 +54,54 @@
                                 </td>
                             {% endif %}
                         </tr>
-                    {% endfor %}    
+                    {% endfor %}
                 {% endfor %}
-
+                
             </tbody>
 
         </table> <!-- Fein Tabla Grilla -->
 
     </div> <!-- Fin Contenedor De Toda La Página -->
+
+    <!-- MODAL PARA ENVIAR EL ID DEL PROVEEDOR A LA VISTA DE NUEVO PEDIDO -->
+	<div id="selecProv" class="modal fade">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+
+                <!-- El action de este form se asigna con jquery para pasar el 
+                     id del proveedor seleccionado por get a la vista-->
+				<form id="frmSelProv" action="" method="GET" autocomplete="off">
+					<div class="modal-header">						
+						<h4 class="modal-title">Seleccionr Proveedor</h4>
+					</div>
+					<div class="modal-body">					
+						<select id="optIdProv" class="form-control">
+                            {% for p in proveedores %}
+                                <option value="{{p.id}}">{{p.nombre}}</option>
+                            {% endfor %}
+                        </select>
+					</div>
+					<div class="modal-footer">
+                        <input id="btnAceptar" type="submit" class="btn btn-info" value="Aceptar">
+						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
 {% endblock principal %}
+
+
+{% block jquery %}
+    <script>
+        $('#btnAceptar').click(function(e){
+            e.preventDefault();
+            var id = $('#optIdProv').val()
+            var form = $('#frmSelProv');
+            form.attr('action', 'pedidoNuevo/'+id);
+            form.submit();
+        });
+    </script>
+{% endblock jquery %}
+    

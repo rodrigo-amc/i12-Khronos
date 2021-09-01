@@ -35,7 +35,7 @@ urlpatterns = [
 
     #region Pedidos
     path('pedidos', views.pedidos, name="Pedidos"),
-    path('pedidoNuevo', views.pedidosNuevo, name='pedidoNuevo'),
+    path('pedidoNuevo/<int:idP>', views.pedidosNuevo, name='pedidoNuevo'),
     #endregion
     
     #Ingresos

@@ -4,22 +4,10 @@
 {% block principal %}
     <div class="container">
         <p class="h3 text-center mt-2">Pedido Nuevo</p>
+        <p class="h3 text-center mt-2">Proveedor: {{prv}} </p>
 
-        <form action="" method="POST" class="mt-4 p-4" autocomplete="off">
-
-            <div class="form-row">
-                <div class="form-group col-md-8">
-                    <label for="provSelect">Proveedor</label>
-                    <select class="form-control" id="provSelect">
-                        <option>Astor</option>
-                        <option>Larsen</option>
-                        <option>Fucce's</option>
-                        <option>Berlina</option>
-                        <option>Harem</option>
-                        <option>Supernova</option>
-                    </select>
-                </div>
-            </div>
+        <form action="" method="POST" class="mt-4 p-4" autocomplete="off" name="frmPedido">
+            {% csrf_token %}
 
             <button id="btnNuevoItem" type="button" class=" btn btn-outline-success" title="Enter">Agregar Item</button>
             
@@ -44,11 +32,15 @@
                         </td>
                         
                         <td>
-                            <input type="text" placeholder="Tipo De Cerveza">
+                            <select class="form-control" name="lineasCerv">
+                                {% for c in prv.cerveza_set.all %}
+                                    <option value="{{c.id}}">{{c.nombre}}</option>
+                                {% endfor %}
+                            </select>
                         </td>
 
                         <td>
-                            <input type="text" placeholder="Cantidad">
+                            <input type="number" min="1" name="lineaCant" placeholder="Cantidad" required>
                         </td>
                     </tr>
                 </tbody>
@@ -56,8 +48,9 @@
             
             <div class="modal-footer mt-5">
                 <!--EL BOTON DE ACEPTAR SE DEBE CAMBIAR A SUBMIT CUANDO SE IMPLEMENTE-->
-                <input id="btnGuardar" type="button" class="btn btn-success" value="Guardar" title="CTRL+G">
-                <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+                <input id="btnGuardar" type="submit" class="btn btn-success" value="Guardar" title="CTRL+G">
+                <!-- <input type="reset" class="btn btn-danger" data-dismiss="modal" value="Cancelar"> -->
+                <a href=" {% url 'Pedidos' %} " class="btn btn-danger">Cancelar</a>
             </div>
         
         </form>
@@ -105,11 +98,15 @@
                             '</td>'+
                             
                             '<td>'+
-                                '<input type="text" placeholder="Tipo De Cerveza">'+
+                                '<select class="form-control" name="lineasCerv">'+
+                                    '{% for c in prv.cerveza_set.all %}'+
+                                        '<option value="{{c.id}}">{{c.nombre}}</option>'+
+                                    '{% endfor %}'+
+                                '</select>'+
                             '</td>'+
 
                             '<td>'+
-                                '<input type="text" placeholder="Cantidad">'+
+                                '<input type="number" min="1" name="lineaCant" placeholder="Cantidad" required>'+
                             '</td>'+
                         '</tr>'
                     );
@@ -123,7 +120,7 @@
 
         //Funcionalidad para Botón "guardar"
         $('#btnGuardar').click(function(){
-
+            preventDefault();
             //Guardo el valor de la ultima fila (tr), el primer campo (input)
             var valNom = $('#tblPedido tr:last input:first').val();
 
@@ -142,7 +139,8 @@
             }else{
                 /*Si hay mas de dos filas y la última tiene los dos campos vacíos entonces permite guardar*/
                 if( ((valNom == '') & (valCan == '')) | ((valNom !='')&(valCan!='')) ){
-                    alert('CRT + G = Guardar');
+                    $('#tblPedido tr:last').remove();
+                    $('#frmPedido').submit();
                 }else{
                     //Sino vuelve a validar con la función del boton "Nuevo Item"
                     $('#btnNuevoItem').click();
@@ -170,11 +168,15 @@
                         '</td>'+
                         
                         '<td>'+
-                            '<input type="text" placeholder="Tipo De Cerveza">'+
+                            '<select class="form-control" name="lineasCerv">'+
+                                '{% for c in prv.cerveza_set.all %}'+
+                                    '<option value="{{c.id}}">{{c.nombre}}</option>'+
+                                '{% endfor %}'+
+                            '</select>'+
                         '</td>'+
 
                         '<td>'+
-                            '<input type="text" placeholder="Cantidad">'+
+                            '<input type="number" min="1" name="lineaCant" placeholder="Cantidad" required>'+
                         '</td>'+
                     '</tr>'
                 );

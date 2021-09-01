@@ -1,7 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.http import JsonResponse
 
 # Importo formularios
 from .forms import frProveedor, frCerveza
@@ -148,6 +147,7 @@ def cervBorrar(request, id):
 @login_required
 def pedidos(request):
     ctxPedidos = {
+        'proveedores': Proveedor.objects.all(),
         'lstPedidos' : Pedido.objects.all()
     }
     
@@ -156,8 +156,23 @@ def pedidos(request):
 
 
 @login_required
-def pedidosNuevo(request):
-    return render(request, 'Pedidos/pedidosNuevo.html')
+def pedidosNuevo(request, idP):
+    if request.method == "GET":
+        id = idP
+        ctxt = {
+            'prv' : Proveedor.objects.get(pk=id)
+        }
+        return render(request, 'Pedidos/pedidosNuevo.html', ctxt)
+    
+    elif request.method == 'POST':
+        lstCerv = request.POST.getlist('lineasCerv')
+        lstCant = request.POST.getlist('lineaCant')
+        
+        for i in range(len(lstCerv)):
+            print(str(lstCerv[i])+" : "+str(lstCant[i]))
+            print(" ")
+
+        return HttpResponse(str(lstCerv) + " : " + str(lstCant))
 
 #endregion pedidos
 
