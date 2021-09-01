@@ -4,9 +4,9 @@ from django.contrib import messages
 
 # Importo formularios
 from .forms import frProveedor, frCerveza
-#frmPedido, frmLineaPedido
-from .models import Pedido, Proveedor, Cerveza
 
+from .models import Pedido, Proveedor, Cerveza, LineaPedido
+from django.contrib.auth.models import User
 # Create your views here.
 # En Django (MTV) las vistas son los controladores de MVC
 # Cada función dentro de este módulo, representa un controlador
@@ -18,6 +18,7 @@ from .models import Pedido, Proveedor, Cerveza
 @login_required
 def menuPrincipal(request):
     return render(request, 'Pedidos/menu.html')
+
 
 #region Controladores Proveedores 
 @login_required
@@ -165,14 +166,26 @@ def pedidosNuevo(request, idP):
         return render(request, 'Pedidos/pedidosNuevo.html', ctxt)
     
     elif request.method == 'POST':
+        usuario = request.user
+        proveedor = Proveedor.objects.get(pk=idP)
+        #cerevzas = proveedor.cerveza_set.all()
+        
+        #Creo objeto pedido Pedido
+        pedido = Pedido()
+        pedido.usuario = usuario
+        pedido.proveedor = proveedor
+        pedido.save()
+
         lstCerv = request.POST.getlist('lineasCerv')
         lstCant = request.POST.getlist('lineaCant')
         
         for i in range(len(lstCerv)):
-            print(str(lstCerv[i])+" : "+str(lstCant[i]))
-            print(" ")
+            """ print(str(lstCerv[i])+" : "+str(lstCant[i]))
+            print(" ") """
 
-        return HttpResponse(str(lstCerv) + " : " + str(lstCant))
+            pedido.cerveza.add(Cerveza.objects.get(pk=lstCerv[i]), through_defaults={'cantidad':lstCant[i]})
+
+        return redirect('/pedidos')
 
 #endregion pedidos
 
