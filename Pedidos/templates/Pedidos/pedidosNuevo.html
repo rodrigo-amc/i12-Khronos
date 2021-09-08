@@ -1,0 +1,212 @@
+{% extends 'Pedidos/menu.html' %}
+
+
+{% block principal %}
+    <div class="container">
+        <p class="h3 text-center mt-2">Pedido Nuevo</p>
+        <p class="h3 text-center mt-2">Proveedor: {{prv}} </p>
+
+        <form action="" method="POST" class="mt-4 p-4" autocomplete="off" name="frmPedido">
+            {% csrf_token %}
+
+            <button id="btnNuevoItem" type="button" class=" btn btn-outline-success" title="Enter">Agregar Item</button>
+            
+            <!-- Grilla Para Cargar Los Pedidos -->
+            <table id="tblPedido" class=" table-sm table-responsive table-hover mt-2">
+                <thead class=" table-dark bg-secondary">
+                    <tr>
+                        <th class="text-center" scope="col"> </th>
+                        <th class="text-ceter" scope="col">Tipo De Cerveza</th>
+                        <th class="text-center" scope="col">Cantidad</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td class="text-center">
+                            <a href="#" data-toggle="modal">
+                                <i class="material-icons text-danger btnBorrar" data-toggle="tooltip" title="Borrar">
+                                    &#xE872;
+                                </i>
+                            </a>
+                        </td>
+                        
+                        <td>
+                            <select class="form-control" name="lineasCerv">
+                                {% for c in prv.cerveza_set.all %}
+                                    <option value="{{c.id}}">{{c.nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+
+                        <td>
+                            <input type="number" min="1" name="lineaCant" placeholder="Cantidad" required>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="modal-footer mt-5">
+                <!--EL BOTON DE ACEPTAR SE DEBE CAMBIAR A SUBMIT CUANDO SE IMPLEMENTE-->
+                <input id="btnGuardar" type="submit" class="btn btn-success" value="Guardar" title="CTRL+G">
+                <a href=" {% url 'Pedidos' %} " class="btn btn-danger">Cancelar</a>
+            </div>
+        
+        </form>
+    </div>
+{% endblock principal %}
+
+
+{% block jquery %}
+    <!-- Script para agregar fila a la tabla de NUEVO (id="pedido")-->
+    <script>
+        //TODO ESTO SACARLO A UN ARCHIVO JS
+        /*Funciona, pero hay que mejorar el código ya que hay muchas variables que se repiten y funcionalidades
+        que deberían estar en funciones para reutilizar */
+
+        //Funcionalidad para el boton "Nuevo Item"
+        $('#btnNuevoItem').click(function(){
+
+            //Guardo el valor de la ultima fila (tr), el primer campo (input)
+            var valNom = $('#tblPedido tr:last input:first').val();
+
+            //Guardo el valor de la ultima fila (tr), el ultimo campo (input)
+            var valCan = $('#tblPedido tr:last input:last').val();
+
+            //Acá se valida que los campos estén completos antes de agregar una nueva fila
+            if ( (valNom == '') ) {
+                alert('Tipo De Cerveza Vacío');
+                $('#tblPedido tr:last input:first').focus();
+                
+            }else{
+                if( ((valNom != '') & (valCan == '')) ){
+                alert('Cantidad Vacío');
+                $('#tblPedido tr:last input:last').focus();
+                
+                /*Si ninguno de los campos está vacío, entonces agrega una nueva fila y
+                le da el foco al primer campo de la nueva fila*/
+                }else {
+                    $('#tblPedido tbody:last').append(
+                        '<tr>'+
+                            '<td class="text-center">'+
+                                '<a href="#" data-toggle="modal">'+
+                                    '<i class="material-icons text-danger btnBorrar" data-toggle="tooltip" title="Borrar">'+
+                                        '&#xE872;'+
+                                    '</i>'+
+                                '</a>'+
+                            '</td>'+
+                            
+                            '<td>'+
+                                '<select class="form-control" name="lineasCerv">'+
+                                    '{% for c in prv.cerveza_set.all %}'+
+                                        '<option value="{{c.id}}">{{c.nombre}}</option>'+
+                                    '{% endfor %}'+
+                                '</select>'+
+                            '</td>'+
+
+                            '<td>'+
+                                '<input type="number" min="1" name="lineaCant" placeholder="Cantidad" required>'+
+                            '</td>'+
+                        '</tr>'
+                    );
+
+                    //$('#tabla tr:last input:first').css("background-color", "red");
+                    $('#tblPedido tr:last input:first').focus();
+                }
+            }
+        
+        });
+
+        //Funcionalidad para Botón "guardar"
+        $('#btnGuardar').click(function(){
+            preventDefault();
+            //Guardo el valor de la ultima fila (tr), el primer campo (input)
+            var valNom = $('#tblPedido tr:last input:first').val();
+
+            //Guardo el valor de la ultima fila (tr), el ultimo campo (input)
+            var valCan = $('#tblPedido tr:last input:last').val();
+
+            //Guardo la cantidad de filas que tiene la tabla
+            var tablaLength = $('#tblPedido tr').length;
+
+            /*Inicialmente la tabla tiene dos filas. La de encabezados y una para completar
+            La primera fila para completar no puede estar vacía para guardar el pedido.
+            Para validarlo llamo a la función que valida que es la del botón "Nuevo Item"*/
+            if(tablaLength < 3){
+                $('#btnNuevoItem').click();
+                
+            }else{
+                /*Si hay mas de dos filas y la última tiene los dos campos vacíos entonces permite guardar*/
+                if( ((valNom == '') & (valCan == '')) | ((valNom !='')&(valCan!='')) ){
+                    $('#tblPedido tr:last').remove();
+                    $('#frmPedido').submit();
+                }else{
+                    //Sino vuelve a validar con la función del boton "Nuevo Item"
+                    $('#btnNuevoItem').click();
+                }
+            }
+        });
+
+
+        //Funcionalidad Para botón "Borrar"
+        $('tbody').on('click', '.btnBorrar', function(){
+
+            //Guardo la cantidad de filas que tiene la tabla
+            var tablaLength = $('#tblPedido tr').length;
+
+            if (tablaLength <3) {
+                $(this).parent().parent().parent().remove();
+                $('#tblPedido tbody:last').append(
+                    '<tr>'+
+                        '<td class="text-center">'+
+                            '<a href="#" data-toggle="modal">'+
+                                '<i class="material-icons text-danger btnBorrar" data-toggle="tooltip" title="Borrar">'+
+                                    '&#xE872;'+
+                                '</i>'+
+                            '</a>'+
+                        '</td>'+
+                        
+                        '<td>'+
+                            '<select class="form-control" name="lineasCerv">'+
+                                '{% for c in prv.cerveza_set.all %}'+
+                                    '<option value="{{c.id}}">{{c.nombre}}</option>'+
+                                '{% endfor %}'+
+                            '</select>'+
+                        '</td>'+
+
+                        '<td>'+
+                            '<input type="number" min="1" name="lineaCant" placeholder="Cantidad" required>'+
+                        '</td>'+
+                    '</tr>'
+                );
+                //$('#tabla tr:last input:first').css("background-color", "red");
+                $('#tblPedido tr:last input:first').focus();
+
+            }else{
+                $(this).parent().parent().parent().remove();
+            }
+            
+        });
+        
+
+        //--------------------------- Atajos De Teclado ---------------------------
+
+        //Cuando se pulsa la tecla "Enter" se llama a la función del botón "Nuevo Item"
+        $(document).keypress(function(event){
+            var keyCode = (event.keyCode ? event.keyCode : event.which);
+            if(keyCode == '13'){
+                $('#btnNuevoItem').click();
+            }
+        });
+
+
+        //Cuando se pulsa "CRTL+G" llama al botón "guardar"
+        $(document).keydown(function(event) {
+            if (event.ctrlKey && event.which === 71) {
+                $('#btnGuardar').click();   
+                event.preventDefault();
+            }
+        });
+
+    </script>
+{% endblock jquery %}

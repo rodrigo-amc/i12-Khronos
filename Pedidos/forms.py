@@ -1,5 +1,6 @@
 from django.forms import ModelForm
 from .models import Proveedor, Cerveza
+#Pedido, LineaPedido
 
 # Ver Usuarios/forms.py
 
@@ -17,3 +18,24 @@ class frCerveza(ModelForm):
     class Meta:
         model = Cerveza
         fields = '__all__'
+
+
+#region PEDIDOS
+""" class frmPedido(ModelForm):
+    class Meta:
+        model = Pedido
+        fields = [
+            'usuario',
+            'proveedor'
+        ]
+
+
+class frmLineaPedido(ModelForm):
+    class Meta:
+        model = LineaPedido
+        fields = [
+            'cerveza',
+            'cantidad'
+        ] """
+
+#endregion PEDIDOS

@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
-import datetime
+
+from django.core.validators import MinValueValidator
+from django.db.models.fields import BLANK_CHOICE_DASH
+
+
 # Create your models here.
 #region Comentarios
 # Las clases dentro de este modulo representan los modelos.
@@ -30,6 +34,32 @@ class Proveedor(models.Model):
         return self.nombre
 
 
+
 class Cerveza(models.Model):
     nombre = models.CharField(max_length=200, unique=True)
     proveedor = models.ManyToManyField(Proveedor)
+
+    def __str__(self):
+        return self.nombre
+
+
+#region Modelos con relación ManyToMany
+class Pedido(models.Model):
+    fecha = models.DateField(auto_now_add=True)
+    usuario = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.DO_NOTHING)
+    cerveza = models.ManyToManyField(Cerveza, through='LineaPedido')
+    fechaEntrega = models.DateField(blank=True, null=True)
+    entregado = models.BooleanField(default=False)
+
+
+class LineaPedido(models.Model):
+    cantidad = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
+    entregado = models.PositiveIntegerField(default=0, blank=True, null=True)
+    pendiente = models.PositiveIntegerField(default=0, blank=True, null=True)
+    cerveza = models.ForeignKey(Cerveza, on_delete=models.CASCADE)
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.cerveza)
+#endregion

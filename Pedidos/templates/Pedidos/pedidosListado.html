@@ -1,0 +1,107 @@
+{% extends 'Pedidos/menu.html' %}
+
+
+{% block principal %}
+    <!-- Contenedor De Toda La Página -->
+    <div class="container-fluid my-3 center">
+            
+        <!-- Encabezado De la Grilla -->
+        <div class="row shadow">
+            <span class="col-6 h3">Pedidos</span>
+
+            <a class="btn btn-success ml-auto" href="#selecProv" data-toggle="modal"><span>Nuevo Pedido</span></a>
+        </div> <!-- Fin Encabezado De la Grilla -->
+
+        <!-- Tabla Grilla -->
+        <table id="tblPedidos" class="table-sm table-responsive table-hover my-2">
+            <thead class="table-dark bg-secondary">
+                <tr>
+                    <th class="text-center" scope="col"># Pedido</th>
+                    <th class="text-center" scope="col">Usuario</th>
+                    <th class="text-center" scope="col">Fecha</th>
+                    <th class="text-center" scope="col">Proveedor</th>
+                    <th class="text-center" scope="col">Tipo De Cerbeza</th>
+                    <th class="text-center" scope="col">Cantidad</th>
+                    <th class="text-center" scope="col">Entregado</th>
+                    <th class="text-center" scope="col">Pendiente</th>
+                    <th class="text-center" scope="col">Estado</th>
+                    <th class="text-center" scope="col">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                
+                {% for pedido in lstPedidos %}
+                    {% for linea in pedido.lineapedido_set.all %}
+                        <tr>
+                            <td scope="row" class="text-center"> {{pedido.id}} </td>
+                            <td> {{pedido.usuario}} </td>
+                            <td class="text-center"> {{pedido.fecha}} </td><!--Fecha-->
+                            <td> {{pedido.proveedor}} </td><!--Proveedor-->
+                            <td> {{linea}} </td><!--Tipo Cerveza-->
+                            <td class="text-center"> {{linea.cantidad}} </td><!--Cantidad-->
+                            <td class="text-center"> {{linea.entregado}} </td><!--Entregado-->
+                            <td class="text-center"> {{linea.pendiente}} </td><!--Pendiente-->
+
+                            
+                            {% if pedido.entregado %}
+                                <td class="text-center"><b>Entregado</b></td><!--Estado Del Pedido-->
+                            {% else %}
+                                <td class="text-center">Pendiente</td><!--Estado Del Pedido-->
+                                <td class="text-center">
+                                    <a href="#editar" data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                                    <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+                
+            </tbody>
+
+        </table> <!-- Fein Tabla Grilla -->
+
+    </div> <!-- Fin Contenedor De Toda La Página -->
+
+    <!-- MODAL PARA ENVIAR EL ID DEL PROVEEDOR A LA VISTA DE NUEVO PEDIDO -->
+	<div id="selecProv" class="modal fade">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+
+                <!-- El action de este form se asigna con jquery para pasar el 
+                     id del proveedor seleccionado por get a la vista-->
+				<form id="frmSelProv" action="" method="GET" autocomplete="off">
+					<div class="modal-header">						
+						<h4 class="modal-title">Seleccionr Proveedor</h4>
+					</div>
+					<div class="modal-body">					
+						<select id="optIdProv" class="form-control">
+                            {% for p in proveedores %}
+                                <option value="{{p.id}}">{{p.nombre}}</option>
+                            {% endfor %}
+                        </select>
+					</div>
+					<div class="modal-footer">
+                        <input id="btnAceptar" type="submit" class="btn btn-info" value="Aceptar">
+						<input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+{% endblock principal %}
+
+
+{% block jquery %}
+    <script>
+        $('#btnAceptar').click(function(e){
+            e.preventDefault();
+            var id = $('#optIdProv').val()
+            var form = $('#frmSelProv');
+            form.attr('action', 'pedidoNuevo/'+id);
+            form.submit();
+        });
+    </script>
+{% endblock jquery %}
+    

@@ -1,3 +1,8 @@
+{% extends 'Pedidos/menu.html' %}
+
+
+{% block principal %}
+   
 <body>
     <!-- Contenedor De Toda La Página -->
     <div class="container-fluid my-3 center">
@@ -17,66 +22,27 @@
                     <th class="text-center" scope="col">Usuario</th>
                     <th class="text-center" scope="col">Fecha</th>
                     <th class="text-center" scope="col">Proveedor</th>
-                    <th class="text-center" scope="col">Tipo De Cerbeza</th>
-                    <th class="text-center" scope="col">Cantidad</th>
-                    <th class="text-center" scope="col">Estado</th>
                     <th class="text-center" scope="col">Acciones</th>
                 </tr>
             </thead>
 
             <tbody>
-                <!-- EJEMPLOS DE REGISTROS DATOS DUROS -->
-                <tr><!--Fila 1-->
-                    <td scope="row" class="text-center">1</td>
-                    <td>Thomas Hardy</td>
-                    <td class="text-center">25/08/1820</td>
-                    <td>Astor</td>
-                    <td>Porter</td>
-                    <td class="text-center">5</td>
-                    <td class="text-center">Pendiente</td>
-                    <td class="text-center">
-                        <a href="#tablaIngreso" class="btn btn-sm btn-outline-success" data-toggle="modal">Ingresar Pedido</a>
-                    </td>
-                </tr>
-
-                <tr><!--Fila 2-->
-                    <td scope="row" class="text-center">2</td>
-                    <td>Thomas Hardy</td>
-                    <td class="text-center">25/08/1820</td>
-                    <td>Larsen</td>
-                    <td>Porter</td>
-                    <td class="text-center">5</td>
-                    <td class="text-center">Pendiente</td>
-                    <td class="text-center">
-                        <a href="#tablaIngreso" class="btn btn-sm btn-outline-success" data-toggle="modal">Ingresar Pedido</a>
-                    </td>
-                </tr>
-
-                <tr><!--Fila 3-->
-                    <td scope="row" class="text-center">3</td>
-                    <td>Thomas Hardy</td>
-                    <td class="text-center">25/08/1820</td>
-                    <td>Fucce's</td>
-                    <td>Porter</td>
-                    <td class="text-center">5</td>
-                    <td class="text-center">Pendiente</td>
-                    <td class="text-center">
-                        <a href="#tablaIngreso" class="btn btn-sm btn-outline-success" data-toggle="modal">Ingresar Pedido</a>
-                    </td>
-                </tr>
-
-                <tr><!--Fila 5-->
-                    <td scope="row" class="text-center">5</td>
-                    <td>Thomas Hardy</td>
-                    <td class="text-center">25/08/1820</td>
-                    <td>Harem</td>
-                    <td>Porter</td>
-                    <td class="text-center">5</td>
-                    <td class="text-center">Pendiente</td>
-                    <td class="text-center">
-                        <a href="#tablaIngreso" class="btn btn-sm btn-outline-success" data-toggle="modal">Ingresar Pedido</a>
-                    </td>
-                </tr>
+                
+                {% for p in pedidos %}
+                    
+                    {% if  not p.entregado %}
+                        <tr><!--Fila 1-->
+                            <td scope="row" class="text-center">{{p.id}}</td>
+                            <td>{{p.usuario}}</td>
+                            <td class="text-center">{{p.fecha}}</td>
+                            <td>{{p.proveedor}}</td>
+                            <td class="text-center">
+                                <a href="{% url 'crearIngreso' p.id %}" class="btn btn-sm btn-outline-success">Ingresar Pedido</a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                        
+                {% endfor %}
             </tbody>
 
         </table> <!-- Fein Tabla Grilla -->
@@ -88,7 +54,7 @@
  -------------------------------------------------------------------------------------------------------------------------->
 
 	<!-- EDITAR Modal HTML -->
-	<div id="tablaIngreso" class="modal fade">
+	<div id="tablaIngreso_{{p.id}}" class="modal fade">
 		<div class="modal-dialog modal-xl">
 			<div class="modal-content">
 				<form>
@@ -134,3 +100,10 @@
 	</div>
 
 </body>
+{% endblock principal %}
+
+
+{% block jquery %}
+    
+{% endblock jquery %}
+    

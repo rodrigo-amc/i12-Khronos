@@ -1,0 +1,27 @@
+fLin = frmLineaPedido()
+
+    if request.method == 'POST':
+        fPed = frmPedido(request.POST)
+        fLin = frmLineaPedido(request.POST)
+
+        if fPed.is_valid() and fLin.is_valid() :
+            """
+            linea = fLin.save()
+            pedido = fPed.save(False)
+            pedido.lineaPedido = linea
+            pedido.save()
+            """
+            pedido = fPed.save()
+            linea = fLin.save(False)
+            linea.pedido = pedido
+            linea.save()
+            
+            return HttpResponse('ENTRO A ISVALID')
+        else:
+            return HttpResponse('NO VALID')
+    
+    return render(request, 'Pedidos/pedidosForm.html',
+    {
+        'formPedido':fPed,
+        'formLinea':fLin
+    })
