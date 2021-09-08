@@ -39,7 +39,8 @@ urlpatterns = [
     #endregion
     
     #Ingresos
-    path('ingresos', views.ingresos, name='Ingresos'),
+    path('ingresos', views.ingresosListado, name='IngresosList'),
+    path('crearIngreso/<int:idPedido>', views.crearIngreso, name='crearIngreso'),
 ]
 
 # Argumentos de path

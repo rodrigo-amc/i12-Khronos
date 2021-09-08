@@ -1,0 +1,53 @@
+{% extends 'Pedidos/menu.html' %}
+
+
+{% block principal %}   
+<div id="tablaIngreso">
+    <h4 class="modal-title text-center mt-4">Registrar Barriles</h4>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <div class="modal-body">					
+            <table class="table-sm table-responsive table-hover my-2">
+                <thead class="table-dark bg-secondary">
+                    <tr>
+                        <th class="text-center" scope="col">Tipo De Cerbeza</th>
+                        <th class="text-center" scope="col">Barril</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    
+                    {% for linea in lstCerv %}
+                        <tr>
+                            <td>{{linea.cerveza}}</td>
+                            <td class="text-center">
+                                <input name="barriles" class="form-control cantRec" type="number" min="1" required placeholder="Numero De Barril">
+                            </td>
+                        </tr>
+                    {% endfor %}
+                        
+                    
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <!--EL BOTON DE ACEPTAR SE DEBE CAMBIAR A SUBMIT CUANDO SE IMPLEMENTE-->
+            <input type="submit" class="btn btn-info" value="Aceptar">
+            <a href="{% url 'IngresosList' %}" class="btn btn-danger">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock principal %}
+
+
+{% block jquery %}
+    <script>
+/*         $(".cantRec").focusout(function(){
+           $(".cantPed").each(function(){
+               var pedido = $(this).text();
+
+           }); 
+        }); */
+    </script>
+{% endblock jquery %}
