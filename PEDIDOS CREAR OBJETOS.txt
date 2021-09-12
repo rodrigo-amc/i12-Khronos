@@ -81,3 +81,40 @@ otra Birra
 # "through_defaults". Completo el campo extra de "LineaPedido" que en este caso
 # es la "cantidad" y automaticamente se guarda un nuevo objeto de "LineaPedido"
 # en Base De Datos
+
+
+######## INGRESOS ##########
+from Pedidos.models import Pedido, Proveedor, Cerveza, Ingreso, Barril
+
+Listo Todos los ingresos
+>>> ingresos = Ingreso.objects.all()
+<QuerySet [<Ingreso: Ingreso object (2)>]>
+
+Selecciono un ingreso
+>>> ingDos = Ingreso.objects.get(pk=2)
+
+Selecciono barriles de un ingreso
+>>> barriles = ingDos.barril_set.all()
+>>> barriles
+<QuerySet
+    [
+    <Barril: Barril object (6)>,
+    <Barril: Barril object (7)>,
+    <Barril: Barril object (8)>,
+    <Barril: Barril object (9)>,
+    <Barril: Barril object (10)>
+    ]
+> 
+
+Selecciono Lineas De Pedido De Este ingreso
+>>> lineas = ingDos.pedido.lineapedido_set.all()
+>>> lineas
+<QuerySet [<LineaPedido: Porter>, <LineaPedido: IPA>, <LineaPedido: Pale Ale>]>
+
+Veo las cantidades "entregado" de cada linea
+>>> for linea in lineas:
+...     print(linea.entregado)
+... 
+3
+1
+1

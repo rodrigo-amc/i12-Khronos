@@ -5,8 +5,7 @@ from django.contrib import messages
 # Importo formularios
 from .forms import frProveedor, frCerveza
 
-from .models import Pedido, Proveedor, Cerveza, LineaPedido
-from django.contrib.auth.models import User
+from .models import Pedido, Proveedor, Cerveza, Ingreso, Barril
 # Create your views here.
 # En Django (MTV) las vistas son los controladores de MVC
 # Cada función dentro de este módulo, representa un controlador
@@ -241,14 +240,79 @@ def crearIngreso(request, idPedido):
 
         contexto = {
             'lstCerv':lstCerv,
+            # Envio las cantidades al siguiente template ya que
+            # en ese no van a existir
+            'cantidades': lstCantRec
             }
         
         return render(request, 'Pedidos/pedidoBarriles.html', contexto)
 
 
-    elif request.method == 'POST' and len(lstBarriles)!=0:        
+    # Si la peticion es por POST y se reciben valores en la lista 'barriles'
+    # se crea la Recepcion, el Pedido cambia de estado a "recibido",
+    # y se crean un barril por cada cantidad recibida.
+    elif request.method == 'POST' and len(lstBarriles)!=0:
+        #Creo Un Ingreso
+        ingreso = Ingreso()
+
+        #Cambia el estado del pedido a "Entregado"
+        pedido.entregado = True
+
+        # Relaciono el Ingreso con el Pedido
+        ingreso.pedido = pedido
+
+        # Asigno al ingreso el numero de remito
+        ingreso.numeroRemito = int(request.POST.get('remito'))
+
+        # Asigno al ingreso Fecha De Remito
+        ingreso.fechaRemito = request.POST.get('fecha')
+
+        # Guardo el ingreso 
+        ingreso.save()
+
+        # Recibo las cantidades ingresadas en el template en el
+        # input "hidden"
+        cantidades = request.POST.getlist('cant')
+
+        # En esta lista se guardan lineas de pedido. Cada linea se guarda
+        # tantas veces como la cantidad recibida indique. La uso para
+        # instanciar un barril por cada linea en la lista.
+        lineaBarril = []
+
+        # Asigno a cada linea la cantidad recibida
+        # Itero tantas veces como lineas tenga el pedido
+        for i in range(len(lineas)):
+            # A la i° linea le asigno el valor de la i° cantidad
+            lineas[i].entregado = int(cantidades[i])
+
+            # Calculo la cantidad del campo "pendiente" para cada linea
+            lineas[i].pendiente = lineas[i].cantidad - lineas[i].entregado
+
+            # Guardo los cambios
+            lineas[i].save()
             
-            return HttpResponse(lstBarriles)
+            # Agrego en la lista "lineaBarril" cada linea, tantas veces como lo
+            # indique la cantidad entregada. Luego uso esa lista para instanciar
+            # los barriles y asignarles el numero de barril de la
+            # lista "lstBarriles".
+            for x in range( lineas[i].entregado):
+                lineaBarril.append(lineas[i])
+                        
+        for b in range(len(lineaBarril)):
+            barril = Barril()
+            barril.ingreso = ingreso
+            barril.numBarril = lstBarriles[b]
+            barril.save()
+
+        #Guardo el pedido
+        pedido.save()
+
+        
+        cntxBarriles = {
+            'ingresos' : Ingreso.objects.all(),
+        }
+        return render(request, 'Pedidos/pedidoBarriles.html', cntxBarriles)
+            
 
     else:
         return HttpResponse('naditas')

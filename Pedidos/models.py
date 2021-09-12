@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 from django.core.validators import MinValueValidator
-from django.db.models.fields import BLANK_CHOICE_DASH
 
 
 # Create your models here.
@@ -43,7 +42,7 @@ class Cerveza(models.Model):
         return self.nombre
 
 
-#region Modelos con relación ManyToMany
+
 class Pedido(models.Model):
     fecha = models.DateField(auto_now_add=True)
     usuario = models.ForeignKey(User, on_delete=models.DO_NOTHING)
@@ -54,6 +53,9 @@ class Pedido(models.Model):
 
 
 class LineaPedido(models.Model):
+    """Esta Clase representa la relacion N a N entre Pedidos y Cervezas.
+    Es en esta clase donde se registran las cantidades Pedidas,
+    Entregadas y Pendientes de un pedido"""
     cantidad = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1)])
     entregado = models.PositiveIntegerField(default=0, blank=True, null=True)
     pendiente = models.PositiveIntegerField(default=0, blank=True, null=True)
@@ -62,4 +64,17 @@ class LineaPedido(models.Model):
 
     def __str__(self):
         return str(self.cerveza)
-#endregion
+
+
+
+class Ingreso(models.Model):
+    pedido = models.OneToOneField(Pedido, on_delete=models.CASCADE)
+    numeroRemito = models.PositiveIntegerField(unique=True)
+    fechaIngreso = models.DateField(auto_now=True)
+    fechaRemito = models.DateField()
+
+
+
+class Barril(models.Model):
+    ingreso = models.ForeignKey(Ingreso, on_delete=models.CASCADE)
+    numBarril = models.PositiveIntegerField()

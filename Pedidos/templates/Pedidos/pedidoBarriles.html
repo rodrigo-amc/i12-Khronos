@@ -7,7 +7,12 @@
     
     <form method="POST">
         {% csrf_token %}
-        <div class="modal-body">					
+        <div class="modal-body">
+            <div class="row align-self-center">
+                <input type="number" min="1" id="remito" name="remito" class="form-control col-md-4 mr-4" placeholder="Numero De Remito">
+                <input type="date" name="fecha" class="form-control col-md-4" placeholder="Fecha De Remito ml-2">
+            </div>
+
             <table class="table-sm table-responsive table-hover my-2">
                 <thead class="table-dark bg-secondary">
                     <tr>
@@ -26,7 +31,9 @@
                             </td>
                         </tr>
                     {% endfor %}
-                        
+                    {% for v in cantidades %}
+                        <input type="hidden" name="cant" value="{{v}}">
+                    {% endfor %}
                     
                 </tbody>
             </table>
@@ -37,17 +44,13 @@
             <a href="{% url 'IngresosList' %}" class="btn btn-danger">Cancelar</a>
         </div>
     </form>
-</div>
+</div> 
+
 {% endblock principal %}
 
 
 {% block jquery %}
     <script>
-/*         $(".cantRec").focusout(function(){
-           $(".cantPed").each(function(){
-               var pedido = $(this).text();
 
-           }); 
-        }); */
     </script>
 {% endblock jquery %}
