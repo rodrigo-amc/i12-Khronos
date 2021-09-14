@@ -41,6 +41,7 @@ urlpatterns = [
     #Ingresos
     path('ingresos', views.ingresosListado, name='IngresosList'),
     path('crearIngreso/<int:idPedido>', views.crearIngreso, name='crearIngreso'),
+    path('listarIngresos', views.listIngresos, name='listarIngresos')
 ]
 
 # Argumentos de path

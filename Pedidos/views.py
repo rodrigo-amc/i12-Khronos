@@ -311,13 +311,31 @@ def crearIngreso(request, idPedido):
         cntxBarriles = {
             'ingresos' : Ingreso.objects.all(),
         }
-        return render(request, 'Pedidos/pedidoBarriles.html', cntxBarriles)
+        return redirect('/listarIngresos')
             
 
     else:
         return HttpResponse('naditas')
     
+def listIngresos(request):
 
+    ingDict = {}
+    ingresos = Ingreso.objects.all()
+
+    for ing in ingresos:
+        ingDict[ing]=[]
+    
+    for i in ingDict:
+        lineas = i.pedido.lineapedido_set.all()
+        for linea in lineas:
+            for x in range(linea.entregado):
+                ingDict[i].append(linea.cerveza)
+
+
+    ingContext = {
+        'ingresos' : ingDict
+    }
+    return render(request, 'Pedidos/ingresoListado.html', ingContext)
 #endregion pedidos
 
 

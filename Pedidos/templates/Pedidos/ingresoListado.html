@@ -1,0 +1,40 @@
+{% extends 'Pedidos/menu.html' %}
+
+
+{% block principal %}
+<div class="row">
+    {% for key, value in ingresos.items %}
+        <div class="col-md-6 shadow mt-4">
+            <p>Pedido: {{key.pedido.id}}</p>
+            <span>Cervezas</span>
+            <ul>
+                
+                {% for v in value %}
+                    
+                    <li>
+                        {{v}}
+                    </li>    
+                {% endfor %}
+                    
+            </ul>   
+        </div>
+
+        <div class="col-md-6 shadow mt-4">
+            <p class="mt-4">Barriles</p>
+            <ul>
+                {% for barril in key.barril_set.all %}
+                    <li>{{barril.numBarril}}</li>
+                {% endfor %}
+            </ul>
+                
+        </div>
+    {% endfor %}
+</div>
+{% endblock principal %}
+
+
+{% block jquery %}
+    <script>
+
+    </script>
+{% endblock jquery %}
