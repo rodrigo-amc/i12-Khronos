@@ -69,9 +69,14 @@
                         <div class="col-6 text-center align-middle">
                             
                             {% if pedido.entregado == False %}
-                                <a href="#" class="btn btn-warning mr-2">Editar Pedido</a>
-                                <a href="{% url 'crearIngreso' pedido.id %}" class="btn btn-success mr-2">Ingresar Pedido</a>
-                                <a href="#" class="btn btn-danger mr-2">Borrar Pedido</a>
+                                <a href="#" class="btn btn-warning mr-2 mb-2">Editar Pedido</a>
+
+                                <a href="{% url 'crearIngreso' pedido.id %}" class="btn btn-success mr-2 mb-2">Ingresar Pedido</a>
+
+                                <form action="{% url 'borrarPedido' pedido.id %}" method="POST" class="d-inline frborrar">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger mb-2" id="borrar">Borrar Pedido</button>
+                                </form>
                             {% endif %}
                                 
                         </div>
@@ -120,6 +125,42 @@
             var form = $('#frmSelProv');
             form.attr('action', 'pedidoNuevo/'+id);
             form.submit();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function(){
+
+            $(".frborrar").submit(function(e){
+                e.preventDefault(e);
+                var ruta = $(this).attr('action');
+
+                //Acá uso el plugin "JQUERY-CONFIRM"
+                $.confirm({
+                    theme: 'bootstrap',
+                    title: 'BORRAR PEDIDO!',
+                    content: 'Esta Acción No Se Puede Revertir',
+                    buttons: {
+                        //Primer boton
+                        danger:{
+                            text:'SI',
+                            btnClass:' btn-danger ',
+                            action: function(){
+                                window.location.href=ruta;
+                            }
+                        },
+                        //Segundo boton
+                        info:{
+                            text: 'No',
+                            btnClass: 'btn-info',
+                            action: function(){
+                                this.close();
+                            }
+                        }
+                    }
+                });
+            });
+
         });
     </script>
 {% endblock jquery %}

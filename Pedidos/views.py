@@ -189,6 +189,17 @@ def pedidosNuevo(request, idP):
 
 
 @login_required
+def pedidoBorrar(request, idPedido):
+    pedido = Pedido.objects.get(pk=idPedido)
+    if pedido.entregado:
+        return HttpResponse("No se puede borrar un pedido entregado. no no no señor!")
+    else:
+        for linea in pedido.lineapedido_set.all():
+            linea.delete()
+        pedido.delete()
+        return redirect('/pedidos')
+
+@login_required
 def ingresosListado(request):
     cntxt = {
         'pedidos' : Pedido.objects.all()
@@ -316,7 +327,9 @@ def crearIngreso(request, idPedido):
 
     else:
         return HttpResponse('naditas')
-    
+
+
+
 def listIngresos(request):
 
     ingDict = {}
