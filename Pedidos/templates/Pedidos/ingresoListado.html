@@ -2,34 +2,51 @@
 
 
 {% block principal %}
-<div class="row">
-    {% for key, value in ingresos.items %}
-        <div class="col-md-6 shadow mt-4">
-            <p>Pedido: {{key.pedido.id}}</p>
-            <span>Cervezas</span>
-            <ul>
-                
-                {% for v in value %}
-                    
-                    <li>
-                        {{v}}
-                    </li>    
-                {% endfor %}
-                    
-            </ul>   
-        </div>
 
-        <div class="col-md-6 shadow mt-4">
-            <p class="mt-4">Barriles</p>
-            <ul>
-                {% for barril in key.barril_set.all %}
-                    <li>{{barril.numBarril}}</li>
-                {% endfor %}
-            </ul>
+    {% for key, value in ingresos.items %}
+        <div class="card border-secondary mt-4 mb-4">
+            <div class="card-header">
+                <p class="">
+                    <span class="mr-4">Ingreso: {{key.id}}</span>
+                    <span class="mr-4">Fecha De Ingreso: {{key.fechaIngreso}}</span> | 
+                    <span class="mr-4">Remito N°: {{key.numeroRemito}}</span>
+                    <span class="mr-4">Fecha De Remito: {{key.fechaRemito}}</span>
+                </p>
+
+                <hr>
                 
+                <p>
+                    <span class="mr-4">Pedido: {{key.pedido.id}} </span>
+                    <span class="mr-4">Proveedor: {{key.pedido.proveedor}} </span>
+                    <span class="mr-4">Fecha De Pedido: {{key.pedido.fecha}} </span>
+                    <span class="mr-4">Usuario: {{key.pedido.usuario}} </span>
+                </p>
+            </div>
+            
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xs-2 col-md-6">
+                        <h5 class="card-title">Cervezas</h5>
+                        <ul class="list-group">
+                            {% for v in value %}
+                                <li class="list-group-item"> {{v}} </li>    
+                            {% endfor %}    
+                        </ul>
+                    </div>
+
+                    <div class="col-xs-2 col-md-6">
+                        <h5 class="card-title">Barriles</h5>
+                        <ul class="list-group">
+                            {% for barril in key.barril_set.all %}
+                                <li class="list-group-item"> {{barril.numBarril}} </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
         </div>
     {% endfor %}
-</div>
 {% endblock principal %}
 
 

@@ -2,66 +2,85 @@
 
 
 {% block principal %}
-    <!-- Contenedor De Toda La Página -->
-    <div class="container-fluid my-3 center">
+    <!-- Listado De Pedidos -->
+    <div class="container-fluid my-3 center p-2">
             
         <!-- Encabezado De la Grilla -->
-        <div class="row shadow">
-            <span class="col-6 h3">Pedidos</span>
+        <div class="row border border-light">
+            <span class="col-6 h3 m-2">Pedidos</span>
 
-            <a class="btn btn-success ml-auto" href="#selecProv" data-toggle="modal"><span>Nuevo Pedido</span></a>
+            <a class="btn btn-success ml-auto mr-4 m-2" href="#selecProv" data-toggle="modal"><span>Pedido Nuevo</span></a>
         </div> <!-- Fin Encabezado De la Grilla -->
+        
+        {% for pedido in lstPedidos %}
+            <div class="card bg-light mb-4 mt-3">
+                <div class="container">
+                    <div class="row">
+                        <div class="card-header col-md-6">
+                            <h5 class="card-title">{{pedido.proveedor}}</h5>
+                            <span class="mr-3"> <b>Pedido:</b> {{pedido.id}}</span>
+                            <span class="mr-3"> <b>Fecha: </b> {{pedido.fecha}}</span>
+                            <span class="mr-3"> <b>Usuario: </b> {{pedido.usuario}}</span>
+                        </div>
+                        
+                        {% if pedido.entregado %}
+                            <div class="card-header col-md-6">
+                                <div class="alert alert-success text-center">
+                                    Pedido Entregado
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="card-header col-md-6">
+                                <div class="alert alert-warning text-center">
+                                    Pedido <b>Pendiente</b>
+                                </div>
+                            </div>
+                        {% endif %}
 
-        <!-- Tabla Grilla -->
-        <table id="tblPedidos" class="table-sm table-responsive table-hover my-2">
-            <thead class="table-dark bg-secondary">
-                <tr>
-                    <th class="text-center" scope="col"># Pedido</th>
-                    <th class="text-center" scope="col">Usuario</th>
-                    <th class="text-center" scope="col">Fecha</th>
-                    <th class="text-center" scope="col">Proveedor</th>
-                    <th class="text-center" scope="col">Tipo De Cerbeza</th>
-                    <th class="text-center" scope="col">Cantidad</th>
-                    <th class="text-center" scope="col">Entregado</th>
-                    <th class="text-center" scope="col">Pendiente</th>
-                    <th class="text-center" scope="col">Estado</th>
-                    <th class="text-center" scope="col">Acciones</th>
-                </tr>
-            </thead>
+                    </div>
+                </div>
 
-            <tbody>
-                
-                {% for pedido in lstPedidos %}
-                    {% for linea in pedido.lineapedido_set.all %}
-                        <tr>
-                            <td scope="row" class="text-center"> {{pedido.id}} </td>
-                            <td> {{pedido.usuario}} </td>
-                            <td class="text-center"> {{pedido.fecha}} </td><!--Fecha-->
-                            <td> {{pedido.proveedor}} </td><!--Proveedor-->
-                            <td> {{linea}} </td><!--Tipo Cerveza-->
-                            <td class="text-center"> {{linea.cantidad}} </td><!--Cantidad-->
-                            <td class="text-center"> {{linea.entregado}} </td><!--Entregado-->
-                            <td class="text-center"> {{linea.pendiente}} </td><!--Pendiente-->
-
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <table id="tblPedidos" class="table-sm table-responsive table-hover">
+                                <thead class="table-dark bg-secondary">
+                                    <tr>
+                                        <th class="text-center" scope="col"><span class="mr-4">Tipo De Cerbeza</span></th>
+                                        <th class="text-center" scope="col"><span class="mr-4">Cantidad</span></th>
+                                        <th class="text-center" scope="col"><span class="mr-4">Entregado</span></th>
+                                        <th class="text-center" scope="col"><span class="mr-4">Pendiente</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    {% for linea in pedido.lineapedido_set.all %}
+                                        <tr>
+                                            <td> {{linea}} </td><!--Tipo Cerveza-->
+                                            <td class="text-center"> {{linea.cantidad}} </td><!--Cantidad-->
+                                            <td class="text-center"> {{linea.entregado}} </td><!--Entregado-->
+                                            <td class="text-center"> {{linea.pendiente}} </td><!--Pendiente-->
+                                        </tr>
+                                    {% endfor %}
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-6 text-center align-middle">
                             
-                            {% if pedido.entregado %}
-                                <td class="text-center"><b>Entregado</b></td><!--Estado Del Pedido-->
-                            {% else %}
-                                <td class="text-center">Pendiente</td><!--Estado Del Pedido-->
-                                <td class="text-center">
-                                    <a href="#editar" data-toggle="modal"><i class="material-icons text-warning" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                                    <a href="#borrar" data-toggle="modal"><i class="material-icons text-danger" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                                </td>
+                            {% if pedido.entregado == False %}
+                                <a href="#" class="btn btn-warning mr-2">Editar Pedido</a>
+                                <a href="{% url 'crearIngreso' pedido.id %}" class="btn btn-success mr-2">Ingresar Pedido</a>
+                                <a href="#" class="btn btn-danger mr-2">Borrar Pedido</a>
                             {% endif %}
-                        </tr>
-                    {% endfor %}
-                {% endfor %}
-                
-            </tbody>
+                                
+                        </div>
+                    </div>                
+                </div>
+            </div>
+        {% endfor %}
 
-        </table> <!-- Fein Tabla Grilla -->
-
-    </div> <!-- Fin Contenedor De Toda La Página -->
+    </div> <!-- Fin Listado De Pedidos -->
 
     <!-- MODAL PARA ENVIAR EL ID DEL PROVEEDOR A LA VISTA DE NUEVO PEDIDO -->
 	<div id="selecProv" class="modal fade">
