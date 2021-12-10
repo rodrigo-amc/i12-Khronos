@@ -48,7 +48,6 @@ class Pedido(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.DO_NOTHING)
     cerveza = models.ManyToManyField(Cerveza, through='LineaPedido')
-    fechaEntrega = models.DateField(blank=True, null=True)
     entregado = models.BooleanField(default=False)
 
 
