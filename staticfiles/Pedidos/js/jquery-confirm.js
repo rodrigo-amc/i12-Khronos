@@ -1,0 +1,1 @@
+/home/rodo/Documents/ProyectosDjango/khronos/Pedidos/static/Pedidos/js/jquery-confirm.js
